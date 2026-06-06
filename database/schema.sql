@@ -155,9 +155,9 @@ CREATE TABLE IF NOT EXISTS settings (
   updated_at  DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Default admin (password: abhyaas@admin — CHANGE ON FIRST LOGIN)
+-- Default admin (password: Abhyaas@2025 — CHANGE ON FIRST LOGIN)
 INSERT IGNORE INTO admins (username, password, name, role)
-VALUES ('admin', '$2b$10$FYmK8Q/xQ3jxokXbxQEJ9Oz2metBrfknl8ja46D8cRjiCFhDyH4D6', 'Super Admin', 'super');
+VALUES ('admin', '$2a$10$lkOJ2awrPhGB9t8k4iePyuy/SWAWBD79QzaTMU623kZ6GJQ4G/Sne', 'Super Admin', 'super');
 
 -- Default settings
 INSERT IGNORE INTO settings (setting_key, value) VALUES
