@@ -89,16 +89,11 @@ exports.loginSubmit = async (req, res) => {
   try {
     const { queryOne } = require('../config/db');
     const admin = await queryOne('SELECT * FROM admins WHERE username=?', [username]);
-    console.log('Login attempt:', username, '| admin found:', !!admin);
-    if (admin) {
-      const match = await bcrypt.compare(password, admin.password);
-      console.log('Password match:', match);
-      if (match) {
-        req.session.adminId   = admin.id;
-        req.session.adminName = admin.name;
-        req.session.adminRole = admin.role;
-        return res.redirect('/admin');
-      }
+    if (admin && await bcrypt.compare(password, admin.password)) {
+      req.session.adminId   = admin.id;
+      req.session.adminName = admin.name;
+      req.session.adminRole = admin.role;
+      return res.redirect('/admin');
     }
   } catch (e) { console.error('Login error:', e.message); }
   res.render('admin/login', { layout: false, title: 'Admin Login | Abhyaas', error: 'Invalid credentials' });
