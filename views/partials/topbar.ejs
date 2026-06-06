@@ -1,0 +1,18 @@
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <% if (school.phone) { %>
+        <a href="tel:<%= school.phone %>"><i class="fa fa-phone"></i> <%= school.phone %></a>
+      <% } %>
+      <% if (school.email) { %>
+        <a href="mailto:<%= school.email %>"><i class="fa fa-envelope"></i> <%= school.email %></a>
+      <% } %>
+    </div>
+    <div class="topbar-right">
+      <% if (school.social.facebook)  { %><a href="<%= school.social.facebook %>"  target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a><% } %>
+      <% if (school.social.instagram) { %><a href="<%= school.social.instagram %>" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a><% } %>
+      <% if (school.social.youtube)   { %><a href="<%= school.social.youtube %>"   target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a><% } %>
+      <% if (school.social.twitter)   { %><a href="<%= school.social.twitter %>"   target="_blank" rel="noopener"><i class="fab fa-x-twitter"></i></a><% } %>
+    </div>
+  </div>
+</div>

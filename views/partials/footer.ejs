@@ -1,0 +1,79 @@
+<footer class="footer">
+  <div class="footer-main">
+    <div class="footer-grid">
+
+      <div class="footer-col footer-brand">
+        <img src="/Abhyaas School Name PNG.png" alt="Abhyaas The Global School" height="48">
+        <p class="footer-tagline"><em>Sramayeva Jayathe</em></p>
+        <p class="footer-desc">CBSE school in Bhimavaram offering quality education from Nursery to Class X.</p>
+        <div class="footer-social">
+          <% if (school.social.facebook)  { %><a href="<%= school.social.facebook %>"  target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a><% } %>
+          <% if (school.social.instagram) { %><a href="<%= school.social.instagram %>" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a><% } %>
+          <% if (school.social.youtube)   { %><a href="<%= school.social.youtube %>"   target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a><% } %>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/academics">Academics</a></li>
+          <li><a href="/admissions">Admissions</a></li>
+          <li><a href="/facilities">Facilities</a></li>
+          <li><a href="/faculty">Faculty</a></li>
+          <li><a href="/disclosure">CBSE Disclosure</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/blog/category/news">School News</a></li>
+          <li><a href="/blog/category/achievement">Achievements</a></li>
+          <li><a href="/events">Events</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/downloads">Downloads</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-contact">
+        <h4>Contact Us</h4>
+        <% if (school.address) { %>
+          <p><i class="fa fa-map-marker-alt"></i> <%= school.address %></p>
+        <% } %>
+        <% if (school.phone) { %>
+          <p><i class="fa fa-phone"></i> <a href="tel:<%= school.phone %>"><%= school.phone %></a></p>
+        <% } %>
+        <% if (school.whatsapp) { %>
+          <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/<%= school.whatsapp.replace(/\D/g,'') %>" target="_blank" rel="noopener"><%= school.whatsapp %></a></p>
+        <% } %>
+        <% if (school.email) { %>
+          <p><i class="fa fa-envelope"></i> <a href="mailto:<%= school.email %>"><%= school.email %></a></p>
+        <% } %>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner">
+      <p>&copy; <%= currentYear %> Abhyaas The Global School. All rights reserved.</p>
+      <ul class="footer-legal">
+        <li><a href="/privacy-policy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms</a></li>
+        <li><a href="/child-protection">Child Protection</a></li>
+        <li><a href="/posh">POSH</a></li>
+        <li><a href="/anti-bullying">Anti-Bullying</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<% if (school.whatsapp) { %>
+<a href="https://wa.me/<%= school.whatsapp.replace(/\D/g,'') %>" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+<% } %>

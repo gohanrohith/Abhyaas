@@ -1,0 +1,184 @@
+<%
+  layout = '../layouts/main';
+  body = '';
+%>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-slider" id="heroSlider">
+    <div class="hero-slide active" style="background-image:url('/images/hero/hero-1.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('/images/hero/hero-2.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('/images/hero/hero-3.jpg')"></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-tagline">Sramayeva Jayathe</p>
+    <h1>Abhyaas The Global School</h1>
+    <p class="hero-sub">CBSE Education · Nursery to Class X · Bhimavaram</p>
+    <div class="hero-actions">
+      <a href="/admissions" class="btn btn-orange">Apply for Admission</a>
+      <a href="/about" class="btn btn-outline-white">Learn More</a>
+    </div>
+  </div>
+  <div class="hero-dots" id="heroDots">
+    <button class="dot active" data-index="0"></button>
+    <button class="dot" data-index="1"></button>
+    <button class="dot" data-index="2"></button>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<section class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat"><span class="stat-num">15+</span><span class="stat-label">Years of Excellence</span></div>
+      <div class="stat"><span class="stat-num">CBSE</span><span class="stat-label">Affiliated Board</span></div>
+      <div class="stat"><span class="stat-num">N–X</span><span class="stat-label">Nursery to Class X</span></div>
+      <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Board Pass Record</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT SNIPPET -->
+<section class="section about-snippet">
+  <div class="container about-snippet-grid">
+    <div class="about-img">
+      <img src="/images/campus.jpg" alt="Abhyaas Campus" loading="lazy">
+    </div>
+    <div class="about-text">
+      <span class="section-tag">About Abhyaas</span>
+      <h2>Nurturing Global Citizens Since 2010</h2>
+      <p><%= school.vision %></p>
+      <p class="about-motto"><i class="fa fa-quote-left"></i> <em>Sramayeva Jayathe</em> — Work alone leads to victory.</p>
+      <a href="/about" class="btn btn-green">Read Our Story</a>
+    </div>
+  </div>
+</section>
+
+<!-- ADMISSIONS CTA -->
+<% if (settings.admissions_open !== '0') { %>
+<section class="admissions-band">
+  <div class="container admissions-band-inner">
+    <div>
+      <h2>Admissions Open — <%= settings.admission_year || '2025-26' %></h2>
+      <p>Secure your child's seat at Abhyaas The Global School today.</p>
+    </div>
+    <a href="/admissions" class="btn btn-orange btn-lg">Enquire Now</a>
+  </div>
+</section>
+<% } %>
+
+<!-- LATEST FROM BLOG -->
+<% if (latestPosts.length > 0) { %>
+<section class="section blog-preview">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Latest Updates</span>
+      <h2>From Our Blog</h2>
+    </div>
+    <div class="blog-cards">
+      <% latestPosts.forEach(post => { %>
+      <article class="blog-card">
+        <% if (post.cover_image) { %>
+        <a href="/blog/<%= post.slug %>" class="blog-card-img">
+          <img src="/uploads/blog/<%= post.cover_image %>" alt="<%= post.title %>" loading="lazy">
+        </a>
+        <% } %>
+        <div class="blog-card-body">
+          <span class="blog-cat blog-cat-<%= post.category %>"><%= post.category %></span>
+          <h3><a href="/blog/<%= post.slug %>"><%= post.title %></a></h3>
+          <% if (post.excerpt) { %><p class="blog-excerpt"><%= post.excerpt.slice(0,100) %>…</p><% } %>
+          <span class="blog-date"><i class="fa fa-calendar-alt"></i> <%= new Date(post.published_at).toLocaleDateString('en-IN', {day:'numeric',month:'short',year:'numeric'}) %></span>
+        </div>
+      </article>
+      <% }) %>
+    </div>
+    <div class="section-cta">
+      <a href="/blog" class="btn btn-outline-green">View All Posts</a>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- UPCOMING EVENTS -->
+<% if (upcomingEvents.length > 0) { %>
+<section class="section events-preview bg-offwhite">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">What's Happening</span>
+      <h2>Upcoming Events</h2>
+    </div>
+    <div class="events-list">
+      <% upcomingEvents.forEach(ev => { %>
+      <div class="event-item">
+        <div class="event-date-box">
+          <span class="event-day"><%= ev.event_date ? new Date(ev.event_date).toLocaleDateString('en-IN',{day:'2-digit'}) : '—' %></span>
+          <span class="event-month"><%= ev.event_date ? new Date(ev.event_date).toLocaleDateString('en-IN',{month:'short'}) : '' %></span>
+        </div>
+        <div class="event-info">
+          <h4><%= ev.title %></h4>
+          <% if (ev.location) { %><p><i class="fa fa-map-marker-alt"></i> <%= ev.location %></p><% } %>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+    <div class="section-cta">
+      <a href="/events" class="btn btn-outline-green">All Events</a>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- GALLERY PREVIEW -->
+<% if (recentGallery.length > 0) { %>
+<section class="section gallery-preview">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Campus Life</span>
+      <h2>Photo Gallery</h2>
+    </div>
+    <div class="gallery-grid">
+      <% recentGallery.forEach(album => { %>
+      <a href="/gallery/<%= album.slug %>" class="gallery-thumb">
+        <% if (album.cover_image) { %>
+          <img src="/uploads/gallery/<%= album.cover_image %>" alt="<%= album.title %>" loading="lazy">
+        <% } else { %>
+          <div class="gallery-thumb-placeholder"><i class="fa fa-images"></i></div>
+        <% } %>
+        <span class="gallery-album-title"><%= album.title %></span>
+      </a>
+      <% }) %>
+    </div>
+    <div class="section-cta">
+      <a href="/gallery" class="btn btn-outline-green">View Gallery</a>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- ACHIEVEMENTS SNIPPET -->
+<section class="section achievements-band bg-navy">
+  <div class="container achievements-band-inner">
+    <div class="achievements-text">
+      <span class="section-tag-light">Our Pride</span>
+      <h2>Student Achievements</h2>
+      <p>Our students shine in academics, sports, arts, and beyond. Every success is a testament to Sramayeva Jayathe.</p>
+      <a href="/achievements" class="btn btn-orange">View Achievements</a>
+    </div>
+    <div class="achievements-icons">
+      <div class="ach-icon"><i class="fa fa-trophy"></i><span>Toppers</span></div>
+      <div class="ach-icon"><i class="fa fa-medal"></i><span>Olympiads</span></div>
+      <div class="ach-icon"><i class="fa fa-futbol"></i><span>Sports</span></div>
+      <div class="ach-icon"><i class="fa fa-palette"></i><span>Arts</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section class="section contact-cta">
+  <div class="container contact-cta-inner">
+    <h2>Have Questions?</h2>
+    <p>We're happy to help. Reach out to us anytime.</p>
+    <a href="/contact" class="btn btn-green">Contact Us</a>
+  </div>
+</section>

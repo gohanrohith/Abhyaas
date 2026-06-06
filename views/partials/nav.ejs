@@ -1,0 +1,54 @@
+<nav class="main-nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <img src="/Abhyaas Logo PNG.png" alt="Abhyaas The Global School" height="56">
+    </a>
+
+    <button class="nav-burger" id="navBurger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/" class="<%= locals.currentPath === '/' ? 'active' : '' %>">Home</a></li>
+
+      <li class="has-dropdown">
+        <a href="/about">About Us <i class="fa fa-chevron-down"></i></a>
+        <ul class="dropdown">
+          <li><a href="/about#school">Our School</a></li>
+          <li><a href="/about#vision">Vision & Mission</a></li>
+          <li><a href="/about#principal">Principal's Message</a></li>
+          <li><a href="/faculty">Our Faculty</a></li>
+        </ul>
+      </li>
+
+      <li class="has-dropdown">
+        <a href="/academics">Academics <i class="fa fa-chevron-down"></i></a>
+        <ul class="dropdown">
+          <li><a href="/academics#curriculum">Curriculum</a></li>
+          <li><a href="/academics#subjects">Subjects & Co-curricular</a></li>
+        </ul>
+      </li>
+
+      <li><a href="/admissions" class="<%= locals.currentPath === '/admissions' ? 'active' : '' %>">Admissions</a></li>
+
+      <li class="has-dropdown">
+        <a href="/events">School Life <i class="fa fa-chevron-down"></i></a>
+        <ul class="dropdown">
+          <li><a href="/events">Events</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/facilities">Facilities</a></li>
+        </ul>
+      </li>
+
+      <li><a href="/blog" class="<%= locals.currentPath === '/blog' ? 'active' : '' %>">Blog</a></li>
+
+      <li><a href="/disclosure" class="<%= locals.currentPath === '/disclosure' ? 'active' : '' %>">Disclosure</a></li>
+
+      <li><a href="/contact" class="<%= locals.currentPath === '/contact' ? 'active' : '' %>">Contact</a></li>
+
+      <li class="nav-cta">
+        <a href="/admissions" class="btn-apply">Apply Now</a>
+      </li>
+    </ul>
+  </div>
+</nav>

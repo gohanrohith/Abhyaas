@@ -1,0 +1,10 @@
+<header class="admin-topbar">
+  <button class="sidebar-toggle" id="sidebarToggle">
+    <i class="fa fa-bars"></i>
+  </button>
+  <div class="admin-topbar-title"><%= typeof title !== 'undefined' ? title.split('|')[0].trim() : 'Admin' %></div>
+  <div class="admin-topbar-right">
+    <span class="admin-user"><i class="fa fa-user-circle"></i> <%= req.session ? req.session.adminName : 'Admin' %></span>
+    <a href="/" target="_blank" class="btn-view-site"><i class="fa fa-arrow-up-right-from-square"></i> View Site</a>
+  </div>
+</header>

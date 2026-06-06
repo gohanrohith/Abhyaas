@@ -1,0 +1,15 @@
+<div id="cookieBanner" class="cookie-banner" style="display:none">
+  <p>We use cookies to improve your experience. By continuing, you agree to our <a href="/cookie-policy">Cookie Policy</a>.</p>
+  <button id="cookieAccept" class="btn-cookie">Accept</button>
+</div>
+<script>
+  (function() {
+    if (!localStorage.getItem('abhyaas_cookie_consent')) {
+      document.getElementById('cookieBanner').style.display = 'flex';
+    }
+    document.getElementById('cookieAccept').addEventListener('click', function() {
+      localStorage.setItem('abhyaas_cookie_consent', '1');
+      document.getElementById('cookieBanner').style.display = 'none';
+    });
+  })();
+</script>

@@ -1,0 +1,48 @@
+<aside class="admin-sidebar" id="adminSidebar">
+  <div class="sidebar-brand">
+    <img src="/Abhyaas Logo PNG.png" alt="Abhyaas" height="40">
+    <span>Admin</span>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a href="/admin" class="<%= locals.currentPath === '/admin' ? 'active' : '' %>">
+      <i class="fa fa-gauge"></i> Dashboard
+    </a>
+    <a href="/admin/blog" class="<%= (locals.currentPath || '').startsWith('/admin/blog') ? 'active' : '' %>">
+      <i class="fa fa-newspaper"></i> Blog Posts
+    </a>
+    <a href="/admin/events" class="<%= (locals.currentPath || '').startsWith('/admin/events') ? 'active' : '' %>">
+      <i class="fa fa-calendar"></i> Events
+    </a>
+    <a href="/admin/gallery" class="<%= (locals.currentPath || '').startsWith('/admin/gallery') ? 'active' : '' %>">
+      <i class="fa fa-images"></i> Gallery
+    </a>
+    <a href="/admin/faculty" class="<%= (locals.currentPath || '').startsWith('/admin/faculty') ? 'active' : '' %>">
+      <i class="fa fa-chalkboard-teacher"></i> Faculty
+    </a>
+    <div class="sidebar-divider"></div>
+    <a href="/admin/admissions" class="<%= (locals.currentPath || '').startsWith('/admin/admissions') ? 'active' : '' %>">
+      <i class="fa fa-file-pen"></i> Admissions
+    </a>
+    <a href="/admin/contacts" class="<%= (locals.currentPath || '').startsWith('/admin/contacts') ? 'active' : '' %>">
+      <i class="fa fa-messages"></i> Contacts
+    </a>
+    <a href="/admin/newsletter" class="<%= (locals.currentPath || '').startsWith('/admin/newsletter') ? 'active' : '' %>">
+      <i class="fa fa-envelope"></i> Newsletter
+    </a>
+    <div class="sidebar-divider"></div>
+    <a href="/admin/compliance" class="<%= (locals.currentPath || '').startsWith('/admin/compliance') ? 'active' : '' %>">
+      <i class="fa fa-file-contract"></i> CBSE Docs
+    </a>
+    <a href="/admin/downloads" class="<%= (locals.currentPath || '').startsWith('/admin/downloads') ? 'active' : '' %>">
+      <i class="fa fa-download"></i> Downloads
+    </a>
+    <div class="sidebar-divider"></div>
+    <a href="/admin/settings" class="<%= (locals.currentPath || '').startsWith('/admin/settings') ? 'active' : '' %>">
+      <i class="fa fa-gear"></i> Settings
+    </a>
+    <a href="/admin/logout" class="sidebar-logout">
+      <i class="fa fa-right-from-bracket"></i> Logout
+    </a>
+  </nav>
+</aside>
