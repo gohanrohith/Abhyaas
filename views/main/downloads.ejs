@@ -1,0 +1,44 @@
+<section class="page-hero">
+  <div class="container">
+    <h1>Downloads</h1>
+    <p>Forms, circulars, calendars, and more</p>
+    <p class="breadcrumb"><a href="/">Home</a> <span>›</span> Downloads</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="max-width:820px">
+    <% const catLabels = {academic:'Academic',admission:'Admission',circular:'Circular',form:'Forms',calendar:'Calendar',result:'Results',other:'Other'};
+    const grouped = {};
+    downloads.forEach(function(d){ if(!grouped[d.category])grouped[d.category]=[];grouped[d.category].push(d); });
+    const cats = Object.keys(grouped);
+    %>
+    <% if (cats.length > 0) { %>
+      <% cats.forEach(function(cat) { %>
+      <div style="margin-bottom:40px">
+        <h3 style="color:var(--navy);font-weight:700;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--green);display:flex;align-items:center;gap:10px">
+          <i class="fa fa-folder-open" style="color:var(--green)"></i> <%= catLabels[cat] || cat %>
+        </h3>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <% grouped[cat].forEach(function(d) { %>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-sm);border-left:3px solid var(--green)">
+            <div style="display:flex;align-items:center;gap:12px">
+              <i class="fa fa-file-pdf" style="color:var(--orange);font-size:1.1rem"></i>
+              <span style="font-weight:500;color:var(--gray-700)"><%= d.label %></span>
+            </div>
+            <a href="/uploads/downloads/<%= d.filename %>" download class="btn btn-outline-green" style="padding:7px 16px;font-size:.8rem">
+              <i class="fa fa-download"></i> Download
+            </a>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+      <% }) %>
+    <% } else { %>
+    <div style="text-align:center;padding:80px 0;color:var(--gray-500)">
+      <i class="fa fa-download" style="font-size:3rem;opacity:.2;display:block;margin-bottom:16px"></i>
+      <p>Downloads will be available here shortly.</p>
+    </div>
+    <% } %>
+  </div>
+</section>

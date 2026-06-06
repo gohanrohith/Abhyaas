@@ -1,0 +1,75 @@
+<div class="page-header">
+  <h1><i class="fa fa-newspaper" style="color:var(--green);margin-right:8px"></i> Blog Posts</h1>
+  <a href="/admin/blog/new" class="btn btn-green"><i class="fa fa-plus"></i> New Post</a>
+</div>
+
+<% if (success) { %><div class="alert alert-success" data-auto-dismiss><i class="fa fa-check-circle"></i> <%= success %></div><% } %>
+<% if (error)   { %><div class="alert alert-error"><i class="fa fa-circle-exclamation"></i> <%= error %></div><% } %>
+
+<div class="card">
+  <div class="table-wrap">
+    <% if (posts.length > 0) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Category</th>
+          <th>Status</th>
+          <th>Featured</th>
+          <th>Views</th>
+          <th>Published</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% posts.forEach(function(p) { %>
+      <% if (p.status === 'deleted') return; %>
+      <tr>
+        <td style="max-width:280px">
+          <a href="/admin/blog/<%= p.id %>/edit" style="color:var(--navy);font-weight:600;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><%= p.title %></a>
+          <span style="font-size:.78rem;color:var(--gray-500)">/blog/<%= p.slug %></span>
+        </td>
+        <td>
+          <% const cats = {news:'badge-navy',article:'badge-green',achievement:'badge-orange'}; %>
+          <span class="badge <%= cats[p.category] || 'badge-gray' %>"><%= p.category %></span>
+        </td>
+        <td>
+          <% const st = {published:'badge-green',draft:'badge-gray',deleted:'badge-red'}; %>
+          <span class="badge <%= st[p.status] || 'badge-gray' %>"><%= p.status %></span>
+        </td>
+        <td style="text-align:center"><%= p.featured ? '★' : '—' %></td>
+        <td><%= p.views || 0 %></td>
+        <td style="font-size:.8rem;color:var(--gray-500)">
+          <% if (p.published_at) { %><%= new Date(p.published_at).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) %><% } else { %>—<% } %>
+        </td>
+        <td>
+          <div class="td-actions">
+            <a href="/admin/blog/<%= p.id %>/edit" class="btn btn-outline btn-xs"><i class="fa fa-pen"></i></a>
+            <% if (p.status === 'draft') { %>
+            <form action="/admin/blog/<%= p.id %>/publish" method="POST" style="display:inline">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <button class="btn btn-green btn-xs" title="Publish"><i class="fa fa-eye"></i></button>
+            </form>
+            <% } else if (p.status === 'published') { %>
+            <form action="/admin/blog/<%= p.id %>/unpublish" method="POST" style="display:inline">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <button class="btn btn-outline btn-xs" title="Unpublish"><i class="fa fa-eye-slash"></i></button>
+            </form>
+            <a href="/blog/<%= p.slug %>" target="_blank" class="btn btn-outline btn-xs" title="View"><i class="fa fa-arrow-up-right-from-square"></i></a>
+            <% } %>
+            <form action="/admin/blog/<%= p.id %>/delete" method="POST" style="display:inline"
+                  data-confirm="Delete this post?">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <button class="btn btn-danger btn-xs" title="Delete"><i class="fa fa-trash"></i></button>
+            </form>
+          </div>
+        </td>
+      </tr>
+      <% }) %>
+      </tbody>
+    </table>
+    <% } else { %>
+    <table><tbody><tr class="empty-row"><td colspan="7"><i class="fa fa-newspaper" style="font-size:2rem;display:block;margin-bottom:8px;opacity:.2"></i>No posts yet. <a href="/admin/blog/new" style="color:var(--green)">Create your first post</a></td></tr></tbody></table>
+    <% } %>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<section class="section" style="min-height:60vh;display:flex;align-items:center">
+  <div class="container" style="text-align:center;max-width:500px">
+    <% if (done) { %>
+    <div style="font-size:3rem;margin-bottom:16px">✓</div>
+    <h1 style="color:var(--navy);margin-bottom:12px">You've been unsubscribed</h1>
+    <p style="color:var(--gray-500);margin-bottom:24px">You will no longer receive newsletter emails from Abhyaas The Global School.</p>
+    <% } else { %>
+    <div style="font-size:3rem;margin-bottom:16px">✕</div>
+    <h1 style="color:var(--navy);margin-bottom:12px">Invalid Link</h1>
+    <p style="color:var(--gray-500);margin-bottom:24px">This unsubscribe link is invalid or has already been used.</p>
+    <% } %>
+    <a href="/" class="btn btn-green">Back to Homepage</a>
+  </div>
+</section>

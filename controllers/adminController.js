@@ -81,7 +81,7 @@ async function q1(sql, params = []) {
 // ── Auth ──────────────────────────────────────────────
 exports.loginPage = (req, res) => {
   if (req.session.adminId) return res.redirect('/admin');
-  res.render('admin/login', { title: 'Admin Login | Abhyaas', error: null });
+  res.render('admin/login', { layout: false, title: 'Admin Login | Abhyaas', error: null });
 };
 
 exports.loginSubmit = async (req, res) => {
@@ -96,7 +96,7 @@ exports.loginSubmit = async (req, res) => {
       return res.redirect('/admin');
     }
   } catch { /* DB not ready */ }
-  res.render('admin/login', { title: 'Admin Login | Abhyaas', error: 'Invalid credentials' });
+  res.render('admin/login', { layout: false, title: 'Admin Login | Abhyaas', error: 'Invalid credentials' });
 };
 
 exports.logout = (req, res) => {
@@ -483,7 +483,7 @@ exports.saveSettings = async (req, res) => {
       await q(`INSERT INTO settings (setting_key, value) VALUES (?,?) ON DUPLICATE KEY UPDATE value=?`, [key, val, val]);
   };
   await Promise.all([
-    upsert('admissions_open', admissions_open),
+    upsert('admissions_open', admissions_open === '1' ? '1' : '0'),
     upsert('admission_year',  admission_year),
     upsert('phone',           phone),
     upsert('whatsapp',        whatsapp),

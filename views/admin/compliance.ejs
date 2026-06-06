@@ -1,0 +1,93 @@
+<div class="page-header">
+  <h1><i class="fa fa-file-contract" style="color:var(--green);margin-right:8px"></i> CBSE Compliance Documents</h1>
+</div>
+
+<% if (success) { %><div class="alert alert-success" data-auto-dismiss><i class="fa fa-check-circle"></i> <%= success %></div><% } %>
+<% if (error)   { %><div class="alert alert-error"><i class="fa fa-circle-exclamation"></i> <%= error %></div><% } %>
+
+<!-- Upload form -->
+<div class="card" style="margin-bottom:24px">
+  <div class="card-header"><h3><i class="fa fa-upload" style="color:var(--green)"></i> Upload Document</h3></div>
+  <div class="card-body">
+    <form action="/admin/compliance/upload" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="doc_type">Document Type <span class="req">*</span></label>
+          <select id="doc_type" name="doc_type" required>
+            <option value="affiliation">Affiliation Certificate</option>
+            <option value="soc">Society/Trust Certificate</option>
+            <option value="noc">NOC from State Govt.</option>
+            <option value="recognition">Recognition Certificate</option>
+            <option value="building">Building Safety Certificate</option>
+            <option value="fire">Fire Safety Certificate</option>
+            <option value="deo">DEO Certificate</option>
+            <option value="water">Potable Water Certificate</option>
+            <option value="self_cert">Self Certification</option>
+            <option value="annual_report">Annual Academic Report</option>
+            <option value="fee_structure">Fee Structure</option>
+            <option value="balance_sheet">Balance Sheet</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="label">Label / Title <span class="req">*</span></label>
+          <input type="text" id="label" name="label" required
+                 placeholder="e.g. Affiliation Certificate 2024-25">
+        </div>
+        <div class="form-group">
+          <label for="year">Year</label>
+          <input type="text" id="year" name="year" placeholder="e.g. 2024-25">
+        </div>
+        <div class="form-group">
+          <label for="sort_order">Sort Order</label>
+          <input type="number" id="sort_order" name="sort_order" value="0" min="0">
+        </div>
+        <div class="form-group full">
+          <label>File <span class="req">*</span></label>
+          <input type="file" name="file" required>
+          <span class="form-hint">PDF, DOC, DOCX. Max 10 MB.</span>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-green" style="margin-top:8px"><i class="fa fa-upload"></i> Upload Document</button>
+    </form>
+  </div>
+</div>
+
+<!-- Document list -->
+<div class="card">
+  <div class="card-header"><h3>Uploaded Documents (<%= docs.length %>)</h3></div>
+  <div class="table-wrap">
+    <% if (docs.length > 0) { %>
+    <table>
+      <thead><tr><th>Label</th><th>Type</th><th>Year</th><th>File</th><th>Uploaded</th><th></th></tr></thead>
+      <tbody>
+      <% docs.forEach(function(d) { %>
+      <tr>
+        <td style="font-weight:600;color:var(--navy)"><%= d.label %></td>
+        <td style="font-size:.85rem;color:var(--gray-500)"><%= d.doc_type %></td>
+        <td style="font-size:.85rem;color:var(--gray-500)"><%= d.year || '—' %></td>
+        <td>
+          <a href="/uploads/compliance/<%= d.filename %>" target="_blank" class="btn btn-outline btn-xs">
+            <i class="fa fa-file-pdf"></i> View
+          </a>
+        </td>
+        <td style="font-size:.8rem;color:var(--gray-500)">
+          <%= new Date(d.created_at).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) %>
+        </td>
+        <td>
+          <form action="/admin/compliance/<%= d.id %>/delete" method="POST" style="display:inline"
+                data-confirm="Remove this document?">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+      </tbody>
+    </table>
+    <% } else { %>
+    <table><tbody><tr class="empty-row"><td colspan="6"><i class="fa fa-file-contract" style="font-size:2rem;display:block;margin-bottom:8px;opacity:.2"></i>No compliance documents uploaded yet.</td></tr></tbody></table>
+    <% } %>
+  </div>
+</div>

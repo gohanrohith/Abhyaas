@@ -1,0 +1,131 @@
+<!-- Page Hero -->
+<section class="page-hero">
+  <div class="container">
+    <h1>About Us</h1>
+    <p>Nurturing global citizens since 2010</p>
+    <p class="breadcrumb"><a href="/">Home</a> <span>›</span> About Us</p>
+  </div>
+</section>
+
+<!-- Our School -->
+<section class="section" id="school">
+  <div class="container about-snippet-grid">
+    <div class="about-img">
+      <img src="/images/campus.jpg" alt="Abhyaas The Global School Campus" loading="lazy">
+    </div>
+    <div class="about-text">
+      <span class="section-tag">Our Story</span>
+      <h2>Abhyaas The Global School</h2>
+      <p>Founded in <%= school.established %>, Abhyaas The Global School has been a pillar of quality CBSE education in Bhimavaram. We believe in the timeless motto — <strong>Sramayeva Jayathe</strong> — that diligent work is the foundation of all achievement.</p>
+      <p>From our humble beginnings, we have grown into a full-fledged institution offering education from Nursery to Class X, shaping thousands of students into confident, compassionate, and academically excellent individuals.</p>
+      <div class="about-stats" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px">
+        <div class="about-stat-box">
+          <strong style="color:var(--orange);font-size:1.4rem">15+</strong>
+          <span style="font-size:.85rem;color:var(--gray-500);display:block">Years of Excellence</span>
+        </div>
+        <div class="about-stat-box">
+          <strong style="color:var(--orange);font-size:1.4rem">CBSE</strong>
+          <span style="font-size:.85rem;color:var(--gray-500);display:block">Affiliated Board</span>
+        </div>
+        <div class="about-stat-box">
+          <strong style="color:var(--orange);font-size:1.4rem">N – X</strong>
+          <span style="font-size:.85rem;color:var(--gray-500);display:block">Nursery to Class X</span>
+        </div>
+        <div class="about-stat-box">
+          <strong style="color:var(--orange);font-size:1.4rem">100%</strong>
+          <span style="font-size:.85rem;color:var(--gray-500);display:block">Board Pass Record</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Vision & Mission -->
+<section class="section bg-offwhite" id="vision">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Our Purpose</span>
+      <h2>Vision & Mission</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:900px;margin:0 auto">
+      <div class="vm-card" style="background:var(--white);border-radius:var(--radius-lg);padding:32px;border-top:4px solid var(--green);box-shadow:var(--shadow-sm)">
+        <div style="width:48px;height:48px;background:var(--green-10);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:16px">
+          <i class="fa fa-eye" style="color:var(--green)"></i>
+        </div>
+        <h3 style="color:var(--navy);margin-bottom:12px">Our Vision</h3>
+        <p style="color:var(--gray-700);line-height:1.7"><%= school.vision %></p>
+      </div>
+      <div class="vm-card" style="background:var(--white);border-radius:var(--radius-lg);padding:32px;border-top:4px solid var(--orange);box-shadow:var(--shadow-sm)">
+        <div style="width:48px;height:48px;background:rgba(168,55,5,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:16px">
+          <i class="fa fa-bullseye" style="color:var(--orange)"></i>
+        </div>
+        <h3 style="color:var(--navy);margin-bottom:12px">Our Mission</h3>
+        <p style="color:var(--gray-700);line-height:1.7"><%= school.mission %></p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px;padding:28px;background:var(--navy);border-radius:var(--radius-lg);max-width:600px;margin:40px auto 0">
+      <p style="color:rgba(255,255,255,.7);font-size:.85rem;margin-bottom:6px;letter-spacing:.1em;text-transform:uppercase">Our Motto</p>
+      <p style="color:var(--white);font-size:1.4rem;font-weight:700;font-style:italic">Sramayeva Jayathe</p>
+      <p style="color:#f0c080;font-size:.9rem;margin-top:4px">Work alone leads to victory</p>
+    </div>
+  </div>
+</section>
+
+<!-- Principal's Message -->
+<% if (school.principal && school.principal.name) { %>
+<section class="section" id="principal">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">From the Desk</span>
+      <h2>Principal's Message</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:280px 1fr;gap:48px;align-items:start;max-width:900px;margin:0 auto">
+      <div style="text-align:center">
+        <img src="<%= school.principal.photo || '/images/principal.jpg' %>" alt="<%= school.principal.name %>"
+          style="width:200px;height:200px;border-radius:50%;object-fit:cover;margin:0 auto 16px;border:4px solid var(--green-10);box-shadow:var(--shadow-md)">
+        <h4 style="color:var(--navy);font-weight:700"><%= school.principal.name %></h4>
+        <p style="color:var(--green);font-size:.875rem;font-weight:500">Principal</p>
+        <p style="color:var(--gray-500);font-size:.85rem">Abhyaas The Global School</p>
+      </div>
+      <div>
+        <i class="fa fa-quote-left" style="font-size:2rem;color:var(--green-10);margin-bottom:16px;display:block"></i>
+        <% if (school.principal.message) { %>
+          <p style="color:var(--gray-700);line-height:1.9;font-size:1.05rem"><%= school.principal.message %></p>
+        <% } else { %>
+          <p style="color:var(--gray-700);line-height:1.9">Education at Abhyaas is not merely about scoring marks — it is about building character, cultivating curiosity, and instilling the values that make a person truly great. We are committed to nurturing each child's unique potential in an environment of care, discipline, and innovation.</p>
+          <p style="color:var(--gray-700);line-height:1.9;margin-top:16px">Our motto, <em>Sramayeva Jayathe</em>, guides every student, teacher, and parent in our community. We believe that consistent effort, backed by values, leads to enduring success.</p>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- Faculty Preview -->
+<% if (faculty && faculty.length > 0) { %>
+<section class="section bg-offwhite">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Our Team</span>
+      <h2>Meet Our Faculty</h2>
+    </div>
+    <div class="faculty-grid">
+      <% faculty.slice(0,8).forEach(f => { %>
+      <div class="faculty-card">
+        <% if (f.photo) { %>
+          <img src="/uploads/faculty/<%= f.photo %>" alt="<%= f.name %>" class="faculty-photo">
+        <% } else { %>
+          <div class="faculty-photo-placeholder"><i class="fa fa-user"></i></div>
+        <% } %>
+        <h4><%= f.name %></h4>
+        <p class="designation"><%= f.designation %></p>
+        <% if (f.subject) { %><p class="subject"><%= f.subject %></p><% } %>
+      </div>
+      <% }) %>
+    </div>
+    <div class="section-cta">
+      <a href="/faculty" class="btn btn-outline-green">View All Faculty</a>
+    </div>
+  </div>
+</section>
+<% } %>

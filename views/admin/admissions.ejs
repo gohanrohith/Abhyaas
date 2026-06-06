@@ -1,0 +1,53 @@
+<div class="page-header">
+  <h1><i class="fa fa-file-pen" style="color:var(--green);margin-right:8px"></i> Admission Enquiries</h1>
+  <span style="color:var(--gray-500);font-size:.85rem"><%= enquiries.length %> record<%= enquiries.length !== 1 ? 's' : '' %></span>
+</div>
+
+<!-- Filter -->
+<div class="filter-tabs">
+  <a href="/admin/admissions"               class="filter-tab <%= !filterStatus ? 'active' : '' %>">All</a>
+  <a href="/admin/admissions?status=new"      class="filter-tab <%= filterStatus==='new' ? 'active' : '' %>">New</a>
+  <a href="/admin/admissions?status=contacted" class="filter-tab <%= filterStatus==='contacted' ? 'active' : '' %>">Contacted</a>
+  <a href="/admin/admissions?status=enrolled" class="filter-tab <%= filterStatus==='enrolled' ? 'active' : '' %>">Enrolled</a>
+  <a href="/admin/admissions?status=closed"   class="filter-tab <%= filterStatus==='closed' ? 'active' : '' %>">Closed</a>
+</div>
+
+<div class="card">
+  <div class="table-wrap">
+    <% if (enquiries.length > 0) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Parent</th>
+          <th>Student</th>
+          <th>Class</th>
+          <th>Phone</th>
+          <th>Status</th>
+          <th>Date</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% enquiries.forEach(function(e) { %>
+      <tr>
+        <td style="font-weight:600;color:var(--navy)"><%= e.parent_name %></td>
+        <td><%= e.student_name %></td>
+        <td><%= e.class_seeking %></td>
+        <td style="font-size:.85rem;color:var(--gray-500)"><%= e.phone %></td>
+        <td>
+          <% const sc = {new:'badge-orange',contacted:'badge-navy',enrolled:'badge-green',closed:'badge-gray'}; %>
+          <span class="badge <%= sc[e.status] || 'badge-gray' %>"><%= e.status %></span>
+        </td>
+        <td style="font-size:.8rem;color:var(--gray-500)">
+          <%= new Date(e.created_at).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) %>
+        </td>
+        <td><a href="/admin/admissions/<%= e.id %>" class="btn btn-outline btn-xs">View</a></td>
+      </tr>
+      <% }) %>
+      </tbody>
+    </table>
+    <% } else { %>
+    <table><tbody><tr class="empty-row"><td colspan="7"><i class="fa fa-file-pen" style="font-size:2rem;display:block;margin-bottom:8px;opacity:.2"></i>No enquiries found.</td></tr></tbody></table>
+    <% } %>
+  </div>
+</div>

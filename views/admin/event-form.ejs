@@ -1,0 +1,70 @@
+<div class="page-header">
+  <h1><i class="fa fa-<%= event && event.id ? 'pen' : 'plus' %>" style="color:var(--green);margin-right:8px"></i>
+    <%= event && event.id ? 'Edit Event' : 'New Event' %></h1>
+  <a href="/admin/events" class="btn btn-outline"><i class="fa fa-arrow-left"></i> Back</a>
+</div>
+
+<% if (error) { %><div class="alert alert-error"><i class="fa fa-circle-exclamation"></i> <%= error %></div><% } %>
+
+<div class="card" style="max-width:700px">
+  <div class="card-body">
+    <form action="<%= event && event.id ? `/admin/events/${event.id}/update` : '/admin/events/create' %>"
+          method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+      <div class="form-grid">
+        <div class="form-group full">
+          <label for="title">Title <span class="req">*</span></label>
+          <input type="text" id="title" name="title" required
+                 value="<%= (event && event.title) ? event.title : '' %>"
+                 placeholder="Event title">
+        </div>
+        <div class="form-group">
+          <label for="event_date">Date</label>
+          <input type="date" id="event_date" name="event_date"
+                 value="<%= (event && event.event_date) ? new Date(event.event_date).toISOString().split('T')[0] : '' %>">
+        </div>
+        <div class="form-group">
+          <label for="event_time">Time</label>
+          <input type="time" id="event_time" name="event_time"
+                 value="<%= (event && event.event_time) ? event.event_time : '' %>">
+        </div>
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input type="text" id="location" name="location"
+                 value="<%= (event && event.location) ? event.location : '' %>"
+                 placeholder="e.g. School Auditorium">
+        </div>
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select id="status" name="status">
+            <option value="upcoming"  <%= (event && event.status === 'upcoming')  ? 'selected' : '' %>>Upcoming</option>
+            <option value="ongoing"   <%= (event && event.status === 'ongoing')   ? 'selected' : '' %>>Ongoing</option>
+            <option value="completed" <%= (event && event.status === 'completed') ? 'selected' : '' %>>Completed</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label for="description">Description</label>
+          <textarea id="description" name="description" rows="5"
+                    placeholder="Event details…"><%= (event && event.description) ? event.description : '' %></textarea>
+        </div>
+        <div class="form-group full">
+          <label>Cover Image</label>
+          <% if (event && event.cover_image) { %>
+          <img src="/uploads/events/<%= event.cover_image %>" alt="Cover"
+               style="width:100%;max-height:200px;object-fit:cover;border-radius:var(--radius);margin-bottom:8px">
+          <% } %>
+          <input type="file" name="image" accept="image/*">
+          <span class="form-hint">JPEG, PNG, WebP. Max 5 MB. Leave blank to keep existing.</span>
+        </div>
+      </div>
+
+      <div style="margin-top:20px;display:flex;gap:10px">
+        <button type="submit" class="btn btn-green">
+          <i class="fa fa-save"></i> <%= event && event.id ? 'Update Event' : 'Create Event' %>
+        </button>
+        <a href="/admin/events" class="btn btn-outline">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>

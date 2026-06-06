@@ -1,0 +1,51 @@
+<section class="page-hero">
+  <div class="container">
+    <h1>Our Facilities</h1>
+    <p>A campus built for learning, growth, and discovery</p>
+    <p class="breadcrumb"><a href="/">Home</a> <span>›</span> Facilities</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Infrastructure</span>
+      <h2>World-Class Learning Environment</h2>
+      <p style="color:var(--gray-500);max-width:600px;margin:0 auto">Every facility at Abhyaas is designed to inspire curiosity and enable excellence.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
+      <% [
+        {icon:'fa-chalkboard',title:'Smart Classrooms',desc:'Interactive digital boards, projectors, and modern furniture create an engaging learning environment in every classroom.'},
+        {icon:'fa-flask',title:'Science Laboratories',desc:'Well-equipped Physics, Chemistry, and Biology labs with hands-on apparatus for practical learning.'},
+        {icon:'fa-computer',title:'Computer Lab',desc:'Modern computers with internet access for digital literacy, coding, and research skills.'},
+        {icon:'fa-book',title:'Library & Reading Room',desc:'A rich collection of books, encyclopaedias, magazines, and digital resources to foster a love of reading.'},
+        {icon:'fa-futbol',title:'Sports Ground',desc:'Dedicated sports facilities for cricket, football, volleyball, athletics, and outdoor games.'},
+        {icon:'fa-running',title:'Indoor Sports',desc:'Facilities for chess, table tennis, carrom, and other indoor activities to develop strategy and focus.'},
+        {icon:'fa-bus',title:'Transport',desc:'Safe, GPS-tracked school buses covering all major routes in Bhimavaram for convenient commuting.'},
+        {icon:'fa-camera',title:'CCTV Surveillance',desc:'24/7 camera monitoring throughout the campus ensures a safe and secure environment for all students.'},
+        {icon:'fa-heartbeat',title:'Medical Room',desc:'On-campus medical room with a first-aid trained staff member to handle health emergencies promptly.'},
+        {icon:'fa-utensils',title:'Cafeteria',desc:'Nutritious, hygienic meals and snacks served in a clean and pleasant dining space.'},
+        {icon:'fa-music',title:'Music & Dance Room',desc:'Dedicated space for classical and contemporary music and dance practice with proper acoustics.'},
+        {icon:'fa-tree',title:'Green Campus',desc:'Landscaped grounds with gardens, shade trees, and eco-conscious practices that teach environmental responsibility.'},
+      ].forEach(function(f) { %>
+      <div style="background:var(--white);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow-sm);border-bottom:3px solid var(--green);transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--shadow-sm)'">
+        <div style="width:52px;height:52px;background:var(--green-10);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;margin-bottom:16px">
+          <i class="fa <%= f.icon %>" style="color:var(--green);font-size:1.2rem"></i>
+        </div>
+        <h3 style="color:var(--navy);font-weight:700;font-size:1rem;margin-bottom:8px"><%= f.title %></h3>
+        <p style="color:var(--gray-500);font-size:.875rem;line-height:1.7"><%= f.desc %></p>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="admissions-band">
+  <div class="container admissions-band-inner">
+    <div>
+      <h2>Experience Our Campus</h2>
+      <p>Schedule a visit and see our facilities in person.</p>
+    </div>
+    <a href="/contact" class="btn btn-orange btn-lg">Book a Visit</a>
+  </div>
+</section>

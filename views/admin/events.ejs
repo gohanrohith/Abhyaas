@@ -1,0 +1,51 @@
+<div class="page-header">
+  <h1><i class="fa fa-calendar" style="color:var(--green);margin-right:8px"></i> Events</h1>
+  <a href="/admin/events/new" class="btn btn-green"><i class="fa fa-plus"></i> New Event</a>
+</div>
+
+<div class="card">
+  <div class="table-wrap">
+    <% if (events.length > 0) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Date</th>
+          <th>Location</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% events.forEach(function(ev) { %>
+      <tr>
+        <td style="font-weight:600;color:var(--navy)"><%= ev.title %></td>
+        <td style="font-size:.85rem;color:var(--gray-500)">
+          <% if (ev.event_date) { %><%= new Date(ev.event_date).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) %>
+          <% if (ev.event_time) { %><br><span style="font-size:.78rem"><%= ev.event_time %></span><% } %>
+          <% } else { %>—<% } %>
+        </td>
+        <td style="font-size:.85rem;color:var(--gray-500)"><%= ev.location || '—' %></td>
+        <td>
+          <% const st = {upcoming:'badge-orange',ongoing:'badge-green',completed:'badge-gray'}; %>
+          <span class="badge <%= st[ev.status] || 'badge-gray' %>"><%= ev.status %></span>
+        </td>
+        <td>
+          <div class="td-actions">
+            <a href="/admin/events/<%= ev.id %>/edit" class="btn btn-outline btn-xs"><i class="fa fa-pen"></i> Edit</a>
+            <form action="/admin/events/<%= ev.id %>/delete" method="POST" style="display:inline"
+                  data-confirm="Delete this event?">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <button class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
+            </form>
+          </div>
+        </td>
+      </tr>
+      <% }) %>
+      </tbody>
+    </table>
+    <% } else { %>
+    <table><tbody><tr class="empty-row"><td colspan="5"><i class="fa fa-calendar" style="font-size:2rem;display:block;margin-bottom:8px;opacity:.2"></i>No events yet. <a href="/admin/events/new" style="color:var(--green)">Add your first event</a></td></tr></tbody></table>
+    <% } %>
+  </div>
+</div>

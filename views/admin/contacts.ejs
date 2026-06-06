@@ -1,0 +1,42 @@
+<div class="page-header">
+  <h1><i class="fa fa-messages" style="color:var(--green);margin-right:8px"></i> Contact Submissions</h1>
+  <span style="color:var(--gray-500);font-size:.85rem"><%= contacts.length %> message<%= contacts.length !== 1 ? 's' : '' %></span>
+</div>
+
+<div class="card">
+  <div class="table-wrap">
+    <% if (contacts.length > 0) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email / Phone</th>
+          <th>Subject</th>
+          <th>Message</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% contacts.forEach(function(c) { %>
+      <tr>
+        <td style="font-weight:600;color:var(--navy);white-space:nowrap"><%= c.name %></td>
+        <td style="font-size:.85rem">
+          <% if (c.email) { %><a href="mailto:<%= c.email %>" style="color:var(--green)"><%= c.email %></a><br><% } %>
+          <% if (c.phone) { %><a href="tel:<%= c.phone %>" style="color:var(--gray-500)"><%= c.phone %></a><% } %>
+        </td>
+        <td style="font-size:.85rem;max-width:160px"><%= c.subject || '—' %></td>
+        <td style="font-size:.85rem;color:var(--gray-700);max-width:280px">
+          <%= c.message ? (c.message.length > 100 ? c.message.slice(0,100) + '…' : c.message) : '—' %>
+        </td>
+        <td style="font-size:.8rem;color:var(--gray-500);white-space:nowrap">
+          <%= new Date(c.created_at).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) %>
+        </td>
+      </tr>
+      <% }) %>
+      </tbody>
+    </table>
+    <% } else { %>
+    <table><tbody><tr class="empty-row"><td colspan="5"><i class="fa fa-messages" style="font-size:2rem;display:block;margin-bottom:8px;opacity:.2"></i>No contact submissions yet.</td></tr></tbody></table>
+    <% } %>
+  </div>
+</div>

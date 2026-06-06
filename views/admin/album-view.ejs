@@ -1,0 +1,64 @@
+<div class="page-header">
+  <h1><i class="fa fa-folder-open" style="color:var(--green);margin-right:8px"></i> <%= album.title %></h1>
+  <a href="/admin/gallery" class="btn btn-outline"><i class="fa fa-arrow-left"></i> Back to Gallery</a>
+</div>
+
+<% if (error) { %><div class="alert alert-error"><i class="fa fa-circle-exclamation"></i> <%= error %></div><% } %>
+
+<!-- Upload form -->
+<div class="card" style="margin-bottom:24px">
+  <div class="card-header"><h3><i class="fa fa-upload" style="color:var(--green)"></i> Upload Photos</h3></div>
+  <div class="card-body">
+    <form action="/admin/gallery/album/<%= album.id %>/upload" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <div style="display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap">
+        <div class="form-group" style="flex:1;min-width:200px">
+          <label>Photos <span class="req">*</span></label>
+          <input type="file" name="images" multiple accept="image/*">
+          <span class="form-hint">Select multiple images at once. JPEG, PNG, WebP. Max 5 MB each.</span>
+        </div>
+        <div class="form-group" style="flex:1;min-width:200px">
+          <label>Caption (applied to all)</label>
+          <input type="text" name="caption" placeholder="Optional caption">
+        </div>
+        <button type="submit" class="btn btn-green" style="margin-bottom:0">
+          <i class="fa fa-upload"></i> Upload
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Photos -->
+<div class="card">
+  <div class="card-header">
+    <h3>Photos (<%= photos.length %>)</h3>
+    <a href="/gallery/<%= album.slug %>" target="_blank" class="btn btn-outline btn-sm">
+      <i class="fa fa-arrow-up-right-from-square"></i> View Public Album
+    </a>
+  </div>
+  <div class="card-body">
+    <% if (photos.length > 0) { %>
+    <div class="photo-grid">
+      <% photos.forEach(function(p) { %>
+      <div class="photo-item">
+        <img src="/uploads/gallery/<%= p.filename %>" alt="<%= p.caption || '' %>" loading="lazy">
+        <form action="/admin/gallery/photo/<%= p.id %>/delete" method="POST"
+              data-confirm="Delete this photo?">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button class="photo-del" title="Delete"><i class="fa fa-trash"></i></button>
+        </form>
+        <% if (p.caption) { %>
+        <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.5);color:#fff;font-size:.7rem;padding:4px 6px;border-radius:0 0 var(--radius) var(--radius);overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><%= p.caption %></div>
+        <% } %>
+      </div>
+      <% }) %>
+    </div>
+    <% } else { %>
+    <div style="text-align:center;padding:40px;color:var(--gray-500)">
+      <i class="fa fa-images" style="font-size:2.5rem;opacity:.2;display:block;margin-bottom:12px"></i>
+      <p>No photos yet. Upload some above.</p>
+    </div>
+    <% } %>
+  </div>
+</div>

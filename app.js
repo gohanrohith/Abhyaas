@@ -13,7 +13,8 @@ const UPLOADS_BASE = process.env.UPLOADS_DIR || path.join(__dirname, 'public/upl
   fs.mkdirSync(path.join(UPLOADS_BASE, d), { recursive: true })
 );
 
-const siteMiddleware  = require('./middleware/site');
+const ejsLayouts     = require('express-ejs-layouts');
+const siteMiddleware = require('./middleware/site');
 const { csrfMiddleware } = require('./middleware/csrf');
 const mainRoutes  = require('./routes/main');
 const adminRoutes = require('./routes/admin');
@@ -63,6 +64,8 @@ app.use(session(sessionConfig));
 app.use(csrfMiddleware);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.use(ejsLayouts);
+app.set('layout', 'layouts/main');
 app.use(siteMiddleware);
 
 app.use('/admin', adminRoutes);

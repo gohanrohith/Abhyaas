@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-logo">
+      <img src="/Abhyaas Logo PNG.png" alt="Abhyaas The Global School">
+      <h2>Admin Portal</h2>
+    </div>
+    <h1>Sign In</h1>
+
+    <% if (error) { %>
+    <div class="alert alert-error"><i class="fa fa-circle-exclamation"></i> <%= error %></div>
+    <% } %>
+
+    <form action="/admin/login" method="POST">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <div class="form-group">
+        <label for="username">Username <span class="req">*</span></label>
+        <input type="text" id="username" name="username" required autofocus autocomplete="username"
+               placeholder="Enter your username">
+      </div>
+      <div class="form-group">
+        <label for="password">Password <span class="req">*</span></label>
+        <input type="password" id="password" name="password" required autocomplete="current-password"
+               placeholder="Enter your password">
+      </div>
+      <button type="submit" class="btn btn-navy"><i class="fa fa-right-to-bracket"></i> Sign In</button>
+    </form>
+
+    <p style="text-align:center;margin-top:20px;font-size:.8rem;color:var(--gray-500)">
+      <a href="/" style="color:var(--gray-500)">← Back to main website</a>
+    </p>
+  </div>
+</div>
+</body>
+</html>

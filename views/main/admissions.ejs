@@ -1,0 +1,101 @@
+<section class="page-hero">
+  <div class="container">
+    <h1>Admissions <%= admissionYear %></h1>
+    <% if (admissionsOpen) { %>
+      <p style="color:#86efac;font-weight:600"><i class="fa fa-circle-check"></i> Admissions are currently open</p>
+    <% } else { %>
+      <p style="color:#fca5a5;font-weight:600"><i class="fa fa-circle-xmark"></i> Admissions are currently closed</p>
+    <% } %>
+    <p class="breadcrumb"><a href="/">Home</a> <span>›</span> Admissions</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="display:grid;grid-template-columns:1fr 400px;gap:64px;align-items:flex-start">
+
+    <!-- Info -->
+    <div>
+      <span class="section-tag">How to Apply</span>
+      <h2 style="color:var(--navy);margin:12px 0 24px">Admission Process</h2>
+      <div style="display:flex;flex-direction:column;gap:20px;margin-bottom:40px">
+        <% [
+          {num:'01',title:'Fill the Enquiry Form',desc:'Submit the online enquiry form on this page with your contact details.'},
+          {num:'02',title:'We Contact You',desc:'Our admissions team will call you within 24 hours to discuss availability and schedule a visit.'},
+          {num:'03',title:'Campus Visit',desc:'Visit our campus, meet the faculty, and experience the Abhyaas learning environment.'},
+          {num:'04',title:'Registration & Admission',desc:'Complete the registration formalities, submit required documents, and secure your child\'s seat.'},
+        ].forEach(function(step) { %>
+        <div style="display:flex;gap:20px;align-items:flex-start">
+          <div style="width:44px;height:44px;background:var(--navy);color:var(--white);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.875rem;flex-shrink:0"><%= step.num %></div>
+          <div>
+            <h4 style="color:var(--navy);font-weight:600;margin-bottom:4px"><%= step.title %></h4>
+            <p style="color:var(--gray-500);font-size:.875rem"><%= step.desc %></p>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+
+      <h3 style="color:var(--navy);margin-bottom:16px">Documents Required</h3>
+      <ul style="display:flex;flex-direction:column;gap:10px">
+        <% ['Birth Certificate of student','Previous class Report Card / Transfer Certificate','2 recent passport-size photographs','Aadhar Card of student and parent','Residence proof (any utility bill)'].forEach(function(doc) { %>
+        <li style="display:flex;align-items:center;gap:10px;color:var(--gray-700);font-size:.9rem">
+          <i class="fa fa-file-alt" style="color:var(--green);width:16px"></i> <%= doc %>
+        </li>
+        <% }) %>
+      </ul>
+
+      <div style="margin-top:32px;padding:20px;background:var(--offwhite);border-radius:var(--radius);border-left:4px solid var(--green)">
+        <p style="color:var(--gray-700);font-size:.9rem"><strong>Classes available:</strong> Nursery · LKG · UKG · Class I to Class X</p>
+        <p style="color:var(--gray-500);font-size:.85rem;margin-top:6px">Admission subject to seat availability. Fill the form and we'll confirm availability promptly.</p>
+      </div>
+    </div>
+
+    <!-- Enquiry Form -->
+    <div style="background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);padding:36px;position:sticky;top:90px">
+      <h3 style="color:var(--navy);margin-bottom:4px;font-size:1.1rem">Admission Enquiry</h3>
+      <p style="color:var(--gray-500);font-size:.85rem;margin-bottom:24px">Fill this form and we'll call you back shortly.</p>
+
+      <% if (success) { %>
+      <div class="alert alert-success"><i class="fa fa-check-circle"></i> Thank you! We'll contact you within 24 hours.</div>
+      <% } %>
+      <% if (error) { %>
+      <div class="alert alert-error"><i class="fa fa-exclamation-circle"></i> <%= error %></div>
+      <% } %>
+
+      <% if (!success) { %>
+      <form action="/admissions/enquiry" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <div class="form-group">
+          <label>Parent / Guardian Name *</label>
+          <input type="text" name="parent_name" class="form-control" required placeholder="Your full name">
+        </div>
+        <div class="form-group">
+          <label>Phone Number *</label>
+          <input type="tel" name="phone" class="form-control" required placeholder="+91 98765 43210">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" name="email" class="form-control" placeholder="optional">
+        </div>
+        <div class="form-group">
+          <label>Student Name</label>
+          <input type="text" name="student_name" class="form-control" placeholder="Child's name">
+        </div>
+        <div class="form-group">
+          <label>Class Seeking Admission</label>
+          <select name="class" class="form-control">
+            <option value="">Select class</option>
+            <% ['Nursery','LKG','UKG','Class I','Class II','Class III','Class IV','Class V','Class VI','Class VII','Class VIII','Class IX','Class X'].forEach(function(c) { %>
+            <option value="<%= c %>"><%= c %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message (optional)</label>
+          <textarea name="message" class="form-control" rows="3" placeholder="Any questions or additional details…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-orange" style="width:100%">Submit Enquiry</button>
+      </form>
+      <% } %>
+    </div>
+  </div>
+</section>

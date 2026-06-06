@@ -1,0 +1,77 @@
+<div class="page-header">
+  <h1><i class="fa fa-download" style="color:var(--green);margin-right:8px"></i> Downloads</h1>
+</div>
+
+<!-- Upload form -->
+<div class="card" style="margin-bottom:24px">
+  <div class="card-header"><h3><i class="fa fa-upload" style="color:var(--green)"></i> Upload File</h3></div>
+  <div class="card-body">
+    <form action="/admin/downloads/upload" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="label">Label <span class="req">*</span></label>
+          <input type="text" id="label" name="label" required
+                 placeholder="e.g. Academic Calendar 2025-26">
+        </div>
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select id="category" name="category">
+            <option value="academic">Academic</option>
+            <option value="admission">Admission</option>
+            <option value="circular">Circular</option>
+            <option value="form">Forms</option>
+            <option value="calendar">Calendar</option>
+            <option value="result">Results</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>File <span class="req">*</span></label>
+          <input type="file" name="file" required>
+          <span class="form-hint">PDF, DOC, DOCX, XLS, XLSX. Max 10 MB.</span>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-green" style="margin-top:8px"><i class="fa fa-upload"></i> Upload</button>
+    </form>
+  </div>
+</div>
+
+<!-- File list -->
+<div class="card">
+  <div class="card-header"><h3>Files (<%= downloads.length %>)</h3></div>
+  <div class="table-wrap">
+    <% if (downloads.length > 0) { %>
+    <table>
+      <thead><tr><th>Label</th><th>Category</th><th>File</th><th>Uploaded</th><th></th></tr></thead>
+      <tbody>
+      <% downloads.forEach(function(d) { %>
+      <tr>
+        <td style="font-weight:600;color:var(--navy)"><%= d.label %></td>
+        <td>
+          <span class="badge badge-navy" style="text-transform:capitalize"><%= d.category %></span>
+        </td>
+        <td>
+          <a href="/uploads/downloads/<%= d.filename %>" target="_blank" class="btn btn-outline btn-xs">
+            <i class="fa fa-file"></i> View
+          </a>
+        </td>
+        <td style="font-size:.8rem;color:var(--gray-500)">
+          <%= new Date(d.created_at).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) %>
+        </td>
+        <td>
+          <form action="/admin/downloads/<%= d.id %>/delete" method="POST" style="display:inline"
+                data-confirm="Delete this file?">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+      </tbody>
+    </table>
+    <% } else { %>
+    <table><tbody><tr class="empty-row"><td colspan="5"><i class="fa fa-download" style="font-size:2rem;display:block;margin-bottom:8px;opacity:.2"></i>No downloads uploaded yet.</td></tr></tbody></table>
+    <% } %>
+  </div>
+</div>

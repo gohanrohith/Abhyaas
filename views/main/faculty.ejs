@@ -1,0 +1,44 @@
+<section class="page-hero">
+  <div class="container">
+    <h1>Our Faculty</h1>
+    <p>Experienced educators committed to every child's growth</p>
+    <p class="breadcrumb"><a href="/">Home</a> <span>›</span> Faculty</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <% if (faculty.length > 0) { %>
+    <div class="faculty-grid">
+      <% faculty.forEach(function(f) { %>
+      <div class="faculty-card">
+        <% if (f.photo) { %>
+          <img src="/uploads/faculty/<%= f.photo %>" alt="<%= f.name %>" class="faculty-photo">
+        <% } else { %>
+          <div class="faculty-photo-placeholder"><i class="fa fa-user"></i></div>
+        <% } %>
+        <h4><%= f.name %></h4>
+        <p class="designation"><%= f.designation %></p>
+        <% if (f.subject) { %><p class="subject"><i class="fa fa-book-open" style="margin-right:4px;color:var(--green);font-size:.75rem"></i><%= f.subject %></p><% } %>
+        <% if (f.qualification) { %><p style="font-size:.78rem;color:var(--gray-500);margin-top:4px"><%= f.qualification %></p><% } %>
+        <% if (f.experience) { %><p style="font-size:.78rem;color:var(--orange);margin-top:4px;font-weight:500"><%= f.experience %> exp.</p><% } %>
+      </div>
+      <% }) %>
+    </div>
+    <% } else { %>
+    <div style="text-align:center;padding:64px 0;color:var(--gray-500)">
+      <i class="fa fa-chalkboard-teacher" style="font-size:3rem;margin-bottom:16px;display:block;opacity:.3"></i>
+      <p>Faculty information will be updated soon.</p>
+    </div>
+    <% } %>
+  </div>
+</section>
+
+<section class="section bg-offwhite">
+  <div class="container" style="max-width:700px;text-align:center">
+    <span class="section-tag">Join Our Team</span>
+    <h2 style="color:var(--navy);margin:12px 0 16px">We're Hiring Passionate Educators</h2>
+    <p style="color:var(--gray-500);margin-bottom:24px">If you are a dedicated educator who believes in the power of <em>Sramayeva Jayathe</em>, we'd love to hear from you.</p>
+    <a href="/contact?subject=Career+Enquiry" class="btn btn-green">Send Your Resume</a>
+  </div>
+</section>

@@ -1,0 +1,53 @@
+<section class="page-hero">
+  <div class="container">
+    <h1>Achievements</h1>
+    <p>Celebrating the success of every Abhyaas student</p>
+    <p class="breadcrumb"><a href="/">Home</a> <span>›</span> Achievements</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <% if (posts && posts.length > 0) { %>
+      <div class="blog-cards">
+        <% posts.forEach(function(p) { %>
+        <article class="blog-card">
+          <% if (p.cover_image) { %>
+          <a href="/blog/<%= p.slug %>" class="blog-card-img">
+            <img src="/uploads/blog/<%= p.cover_image %>" alt="<%= p.title %>" loading="lazy">
+          </a>
+          <% } %>
+          <div class="blog-card-body">
+            <span class="blog-cat blog-cat-achievement">Achievement</span>
+            <h3><a href="/blog/<%= p.slug %>"><%= p.title %></a></h3>
+            <% if (p.excerpt) { %><p class="blog-excerpt"><%= p.excerpt.slice(0,100) %>…</p><% } %>
+            <span class="blog-date"><i class="fa fa-calendar-alt"></i>
+              <%= new Date(p.published_at).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) %>
+            </span>
+          </div>
+        </article>
+        <% }) %>
+      </div>
+    <% } else { %>
+    <div style="text-align:center;padding:80px 0">
+      <i class="fa fa-trophy" style="font-size:3rem;color:var(--orange);opacity:.3;display:block;margin-bottom:16px"></i>
+      <p style="color:var(--gray-500)">Achievements will be published here soon. Check back later!</p>
+    </div>
+    <% } %>
+
+    <!-- Achievement categories -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:64px;padding-top:48px;border-top:1px solid var(--gray-200)">
+      <% [
+        {icon:'fa-trophy',label:'Academic Toppers',color:'var(--orange)'},
+        {icon:'fa-medal',label:'Olympiad Medalists',color:'var(--navy)'},
+        {icon:'fa-futbol',label:'Sports Champions',color:'var(--green)'},
+        {icon:'fa-star',label:'Co-curricular Stars',color:'var(--orange)'},
+      ].forEach(function(item) { %>
+      <div style="text-align:center;padding:24px;background:var(--offwhite);border-radius:var(--radius-lg)">
+        <i class="fa <%= item.icon %>" style="font-size:1.8rem;color:<%= item.color %>;margin-bottom:10px;display:block"></i>
+        <span style="font-size:.875rem;font-weight:600;color:var(--navy)"><%= item.label %></span>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>

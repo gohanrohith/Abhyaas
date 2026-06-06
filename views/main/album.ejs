@@ -1,0 +1,60 @@
+<section class="page-hero" style="padding:40px 0">
+  <div class="container">
+    <h1><%= album.title %></h1>
+    <% if (album.description) { %><p><%= album.description %></p><% } %>
+    <p class="breadcrumb"><a href="/">Home</a> <span>›</span> <a href="/gallery">Gallery</a> <span>›</span> <%= album.title %></p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:40px">
+  <div class="container">
+    <% if (photos.length > 0) { %>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px" id="photoGrid">
+      <% photos.forEach(function(photo, i) { %>
+      <a href="/uploads/gallery/<%= photo.filename %>" class="lightbox-item" data-index="<%= i %>"
+         style="display:block;aspect-ratio:1;border-radius:var(--radius);overflow:hidden;cursor:zoom-in">
+        <img src="/uploads/gallery/<%= photo.filename %>" alt="<%= photo.caption || album.title %>"
+             loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:transform .3s"
+             onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform=''">
+      </a>
+      <% }) %>
+    </div>
+    <% } else { %>
+    <div style="text-align:center;padding:80px 0;color:var(--gray-500)">
+      <i class="fa fa-images" style="font-size:3rem;opacity:.2;display:block;margin-bottom:16px"></i>
+      <p>No photos in this album yet.</p>
+    </div>
+    <% } %>
+
+    <div style="text-align:center;margin-top:32px">
+      <a href="/gallery" class="btn btn-outline-green">← Back to Gallery</a>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;align-items:center;justify-content:center;flex-direction:column">
+  <button onclick="closeLightbox()" style="position:absolute;top:20px;right:24px;background:none;border:none;color:#fff;font-size:1.8rem;cursor:pointer">×</button>
+  <img id="lbImg" src="" alt="" style="max-width:90vw;max-height:85vh;object-fit:contain;border-radius:var(--radius)">
+  <button onclick="lbNav(-1)" style="position:absolute;left:16px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.15);border:none;color:#fff;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:1.1rem">‹</button>
+  <button onclick="lbNav(1)"  style="position:absolute;right:16px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.15);border:none;color:#fff;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:1.1rem">›</button>
+</div>
+<script>
+  const photos = [<% photos.forEach(function(p,i){ %><%= i>0?',':'' %>'<%= '/uploads/gallery/'+p.filename %>'<% }) %>];
+  let cur = 0;
+  document.querySelectorAll('.lightbox-item').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      cur = parseInt(a.dataset.index);
+      showLb();
+    });
+  });
+  function showLb() {
+    document.getElementById('lbImg').src = photos[cur];
+    document.getElementById('lightbox').style.display = 'flex';
+  }
+  function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; }
+  function lbNav(d) { cur = (cur + d + photos.length) % photos.length; showLb(); }
+  document.getElementById('lightbox').addEventListener('click', function(e){ if(e.target===this)closeLightbox(); });
+  document.addEventListener('keydown', e => { if(e.key==='Escape')closeLightbox(); if(e.key==='ArrowLeft')lbNav(-1); if(e.key==='ArrowRight')lbNav(1); });
+</script>

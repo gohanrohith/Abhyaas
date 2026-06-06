@@ -1,0 +1,107 @@
+<div class="page-header">
+  <h1><i class="fa fa-gauge" style="color:var(--green);margin-right:8px"></i> Dashboard</h1>
+  <span style="color:var(--gray-500);font-size:.85rem">Welcome, <%= adminName %></span>
+</div>
+
+<!-- Stats -->
+<div class="stats-grid">
+  <div class="stat-card">
+    <span class="stat-num"><%= stats.posts %></span>
+    <span class="stat-label">Published Posts</span>
+  </div>
+  <div class="stat-card navy">
+    <span class="stat-num"><%= stats.events %></span>
+    <span class="stat-label">Upcoming Events</span>
+  </div>
+  <div class="stat-card orange">
+    <span class="stat-num"><%= stats.enquiries %></span>
+    <span class="stat-label">New Enquiries</span>
+  </div>
+  <div class="stat-card lime">
+    <span class="stat-num"><%= stats.gallery %></span>
+    <span class="stat-label">Gallery Albums</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-num"><%= stats.contacts %></span>
+    <span class="stat-label">Contact Messages</span>
+  </div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;flex-wrap:wrap">
+
+  <!-- Recent Enquiries -->
+  <div class="card">
+    <div class="card-header">
+      <h3><i class="fa fa-file-pen" style="color:var(--orange)"></i> Recent Enquiries</h3>
+      <a href="/admin/admissions" class="btn btn-outline btn-sm">View All</a>
+    </div>
+    <div class="table-wrap">
+      <% if (recentEnquiries.length > 0) { %>
+      <table>
+        <thead><tr><th>Parent</th><th>Class</th><th>Status</th></tr></thead>
+        <tbody>
+        <% recentEnquiries.forEach(function(e){ %>
+        <tr>
+          <td>
+            <a href="/admin/admissions/<%= e.id %>" style="color:var(--navy);font-weight:600"><%= e.parent_name %></a>
+            <br><span style="font-size:.8rem;color:var(--gray-500)"><%= e.phone %></span>
+          </td>
+          <td><%= e.class_seeking %></td>
+          <td>
+            <% const sc = {new:'badge-orange',contacted:'badge-navy',enrolled:'badge-green',closed:'badge-gray'}; %>
+            <span class="badge <%= sc[e.status] || 'badge-gray' %>"><%= e.status %></span>
+          </td>
+        </tr>
+        <% }) %>
+        </tbody>
+      </table>
+      <% } else { %>
+      <p style="padding:24px;text-align:center;color:var(--gray-500)">No enquiries yet.</p>
+      <% } %>
+    </div>
+  </div>
+
+  <!-- Recent Posts -->
+  <div class="card">
+    <div class="card-header">
+      <h3><i class="fa fa-newspaper" style="color:var(--green)"></i> Recent Posts</h3>
+      <a href="/admin/blog/new" class="btn btn-green btn-sm"><i class="fa fa-plus"></i> New Post</a>
+    </div>
+    <div class="table-wrap">
+      <% if (recentPosts.length > 0) { %>
+      <table>
+        <thead><tr><th>Title</th><th>Status</th></tr></thead>
+        <tbody>
+        <% recentPosts.forEach(function(p){ %>
+        <tr>
+          <td>
+            <a href="/admin/blog/<%= p.id %>/edit" style="color:var(--navy);font-weight:600;display:block;max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><%= p.title %></a>
+          </td>
+          <td>
+            <% const ps = {published:'badge-green',draft:'badge-gray',deleted:'badge-red'}; %>
+            <span class="badge <%= ps[p.status] || 'badge-gray' %>"><%= p.status %></span>
+          </td>
+        </tr>
+        <% }) %>
+        </tbody>
+      </table>
+      <% } else { %>
+      <p style="padding:24px;text-align:center;color:var(--gray-500)">No posts yet.</p>
+      <% } %>
+    </div>
+  </div>
+
+</div>
+
+<!-- Quick Links -->
+<div class="card" style="margin-top:24px">
+  <div class="card-header"><h3>Quick Actions</h3></div>
+  <div class="card-body" style="display:flex;flex-wrap:wrap;gap:12px">
+    <a href="/admin/blog/new"       class="btn btn-green"><i class="fa fa-plus"></i> New Blog Post</a>
+    <a href="/admin/events/new"     class="btn btn-navy"><i class="fa fa-plus"></i> New Event</a>
+    <a href="/admin/gallery/new-album" class="btn btn-outline"><i class="fa fa-plus"></i> New Album</a>
+    <a href="/admin/admissions"     class="btn btn-outline"><i class="fa fa-file-pen"></i> View Admissions</a>
+    <a href="/admin/settings"       class="btn btn-outline"><i class="fa fa-gear"></i> Settings</a>
+    <a href="/" target="_blank"     class="btn btn-outline"><i class="fa fa-arrow-up-right-from-square"></i> View Site</a>
+  </div>
+</div>

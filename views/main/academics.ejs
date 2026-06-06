@@ -1,0 +1,125 @@
+<section class="page-hero">
+  <div class="container">
+    <h1>Academics</h1>
+    <p>CBSE curriculum from Nursery to Class X</p>
+    <p class="breadcrumb"><a href="/">Home</a> <span>›</span> Academics</p>
+  </div>
+</section>
+
+<!-- Curriculum -->
+<section class="section" id="curriculum">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Our Curriculum</span>
+      <h2>CBSE — Building Future Achievers</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-bottom:64px">
+      <div>
+        <p style="color:var(--gray-700);line-height:1.9;margin-bottom:16px">Abhyaas The Global School is affiliated to the Central Board of Secondary Education (CBSE), one of India's most respected educational boards. Our curriculum is designed to build conceptual clarity, analytical thinking, and a love for learning.</p>
+        <p style="color:var(--gray-700);line-height:1.9;margin-bottom:24px">We follow the National Curriculum Framework, supplemented by activity-based learning, project work, and continuous assessment to ensure holistic development from Nursery through Class X.</p>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:36px;height:36px;background:var(--green-10);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <i class="fa fa-check" style="color:var(--green);font-size:.8rem"></i>
+            </div>
+            <span style="color:var(--gray-700)">CBSE Affiliated (Nursery to Class X)</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:36px;height:36px;background:var(--green-10);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <i class="fa fa-check" style="color:var(--green);font-size:.8rem"></i>
+            </div>
+            <span style="color:var(--gray-700)">English medium instruction</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:36px;height:36px;background:var(--green-10);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <i class="fa fa-check" style="color:var(--green);font-size:.8rem"></i>
+            </div>
+            <span style="color:var(--gray-700)">Continuous & Comprehensive Evaluation (CCE)</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:36px;height:36px;background:var(--green-10);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <i class="fa fa-check" style="color:var(--green);font-size:.8rem"></i>
+            </div>
+            <span style="color:var(--gray-700)">Board-aligned exam preparation from Class IX</span>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--navy);border-radius:var(--radius-lg);padding:36px;color:var(--white)">
+        <h3 style="margin-bottom:24px;font-size:1.2rem">Class Structure</h3>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <% [['Pre-Primary', 'Nursery, LKG, UKG','Foundation in play-based learning'],
+              ['Primary', 'Class I – V','Core subjects + co-curricular'],
+              ['Middle School', 'Class VI – VIII','Concept-building & project work'],
+              ['Secondary', 'Class IX – X','Board examination preparation']].forEach(function(row) { %>
+          <div style="display:flex;gap:16px;align-items:flex-start;padding:14px;background:rgba(255,255,255,.08);border-radius:var(--radius)">
+            <div style="flex-shrink:0;width:10px;height:10px;background:var(--orange);border-radius:50%;margin-top:5px"></div>
+            <div>
+              <strong style="color:var(--white);font-size:.9rem"><%= row[0] %></strong>
+              <span style="color:rgba(255,255,255,.6);font-size:.8rem"> — <%= row[1] %></span>
+              <p style="color:rgba(255,255,255,.55);font-size:.78rem;margin-top:2px"><%= row[2] %></p>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Subjects -->
+<section class="section bg-offwhite" id="subjects">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Subjects & Co-curricular</span>
+      <h2>What We Teach</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+      <% [
+        {icon:'fa-calculator',title:'Mathematics',desc:'Building numerical reasoning, problem solving, and logical thinking from foundational to advanced level.'},
+        {icon:'fa-flask',title:'Science',desc:'Hands-on laboratory experiments in Physics, Chemistry, and Biology to make science tangible and exciting.'},
+        {icon:'fa-book-open',title:'English Language',desc:'Grammar, comprehension, creative writing, and literature to build confident communicators.'},
+        {icon:'fa-language',title:'Second Language',desc:'Telugu / Hindi options to foster cultural roots and multilingual ability.'},
+        {icon:'fa-globe',title:'Social Studies',desc:'History, Geography, Civics, and Economics to build informed, responsible citizens.'},
+        {icon:'fa-laptop-code',title:'Computer Science',desc:'Coding, digital literacy, and foundational programming skills for the modern world.'},
+        {icon:'fa-paint-brush',title:'Arts & Crafts',desc:'Developing creativity, fine motor skills, and aesthetic expression through visual arts.'},
+        {icon:'fa-music',title:'Music & Dance',desc:'Classical and contemporary forms that build discipline, expression, and cultural appreciation.'},
+        {icon:'fa-futbol',title:'Physical Education',desc:'Sports, yoga, and fitness activities to ensure holistic physical health and teamwork.'},
+      ].forEach(function(s) { %>
+      <div style="background:var(--white);border-radius:var(--radius-lg);padding:24px;box-shadow:var(--shadow-sm);display:flex;gap:16px;align-items:flex-start">
+        <div style="width:44px;height:44px;background:var(--green-10);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <i class="fa <%= s.icon %>" style="color:var(--green)"></i>
+        </div>
+        <div>
+          <h4 style="color:var(--navy);font-weight:600;margin-bottom:6px"><%= s.title %></h4>
+          <p style="color:var(--gray-500);font-size:.85rem;line-height:1.6"><%= s.desc %></p>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- Teaching Approach -->
+<section class="section">
+  <div class="container" style="max-width:820px">
+    <div class="section-header">
+      <span class="section-tag">Our Pedagogy</span>
+      <h2>How We Teach</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+      <% [
+        {title:'Activity-Based Learning',icon:'fa-cubes',color:'var(--green)'},
+        {title:'Smart Classroom Technology',icon:'fa-chalkboard',color:'var(--navy)'},
+        {title:'Regular Assessments & Feedback',icon:'fa-clipboard-check',color:'var(--orange)'},
+        {title:'Olympiad & Competition Prep',icon:'fa-trophy',color:'var(--green)'},
+        {title:'Parent-Teacher Communication',icon:'fa-comments',color:'var(--navy)'},
+        {title:'Individual Attention & Remedial Classes',icon:'fa-user-graduate',color:'var(--orange)'},
+      ].forEach(function(item) { %>
+      <div style="display:flex;align-items:center;gap:14px;padding:18px;border:1px solid var(--gray-200);border-radius:var(--radius)">
+        <i class="fa <%= item.icon %>" style="color:<%= item.color %>;font-size:1.1rem;width:20px;text-align:center"></i>
+        <span style="font-weight:500;color:var(--gray-700);font-size:.9rem"><%= item.title %></span>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</section>

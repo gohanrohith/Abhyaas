@@ -1,0 +1,41 @@
+<div class="page-header">
+  <h1><i class="fa fa-images" style="color:var(--green);margin-right:8px"></i> Gallery Albums</h1>
+  <a href="/admin/gallery/new-album" class="btn btn-green"><i class="fa fa-plus"></i> New Album</a>
+</div>
+
+<% if (albums.length > 0) { %>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px">
+  <% albums.forEach(function(a) { %>
+  <div class="card" style="margin-bottom:0">
+    <% if (a.cover_image) { %>
+    <img src="/uploads/gallery/<%= a.cover_image %>" alt="<%= a.title %>"
+         style="width:100%;height:160px;object-fit:cover;border-radius:var(--radius-lg) var(--radius-lg) 0 0">
+    <% } else { %>
+    <div style="height:160px;background:var(--offwhite);border-radius:var(--radius-lg) var(--radius-lg) 0 0;display:flex;align-items:center;justify-content:center;color:var(--gray-300)">
+      <i class="fa fa-images" style="font-size:2.5rem"></i>
+    </div>
+    <% } %>
+    <div class="card-body" style="padding:14px">
+      <h3 style="font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:4px"><%= a.title %></h3>
+      <p style="font-size:.8rem;color:var(--gray-500);margin-bottom:12px"><%= a.photo_count %> photo<%= a.photo_count !== 1 ? 's' : '' %></p>
+      <div style="display:flex;gap:8px">
+        <a href="/admin/gallery/album/<%= a.id %>" class="btn btn-green btn-sm" style="flex:1;justify-content:center">
+          <i class="fa fa-folder-open"></i> Open
+        </a>
+        <form action="/admin/gallery/album/<%= a.id %>/delete" method="POST" data-confirm="Delete this album?">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <% }) %>
+</div>
+<% } else { %>
+<div class="card">
+  <div class="card-body" style="text-align:center;padding:60px">
+    <i class="fa fa-images" style="font-size:3rem;opacity:.2;display:block;margin-bottom:16px"></i>
+    <p style="color:var(--gray-500)">No albums yet. <a href="/admin/gallery/new-album" style="color:var(--green)">Create your first album</a></p>
+  </div>
+</div>
+<% } %>

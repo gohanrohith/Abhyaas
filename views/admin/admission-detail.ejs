@@ -1,0 +1,71 @@
+<div class="page-header">
+  <h1><i class="fa fa-file-pen" style="color:var(--green);margin-right:8px"></i> Admission Enquiry</h1>
+  <a href="/admin/admissions" class="btn btn-outline"><i class="fa fa-arrow-left"></i> Back</a>
+</div>
+
+<% if (!admission) { %>
+<div class="alert alert-error"><i class="fa fa-circle-exclamation"></i> Enquiry not found.</div>
+<% } else { %>
+
+<div style="display:grid;grid-template-columns:1fr 280px;gap:24px;align-items:start">
+
+  <!-- Detail card -->
+  <div class="card">
+    <div class="card-header">
+      <h3>Enquiry Details</h3>
+      <span style="font-size:.8rem;color:var(--gray-500)">
+        <%= new Date(admission.created_at).toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'}) %>
+      </span>
+    </div>
+    <div class="card-body">
+      <table style="width:100%">
+        <tbody>
+        <tr><td style="padding:10px 0;font-weight:600;color:var(--gray-700);width:140px;border-bottom:1px solid var(--border)">Parent Name</td><td style="padding:10px 0;border-bottom:1px solid var(--border)"><%= admission.parent_name %></td></tr>
+        <tr><td style="padding:10px 0;font-weight:600;color:var(--gray-700);border-bottom:1px solid var(--border)">Student Name</td><td style="padding:10px 0;border-bottom:1px solid var(--border)"><%= admission.student_name %></td></tr>
+        <tr><td style="padding:10px 0;font-weight:600;color:var(--gray-700);border-bottom:1px solid var(--border)">Class Seeking</td><td style="padding:10px 0;border-bottom:1px solid var(--border)"><%= admission.class_seeking %></td></tr>
+        <tr><td style="padding:10px 0;font-weight:600;color:var(--gray-700);border-bottom:1px solid var(--border)">Phone</td><td style="padding:10px 0;border-bottom:1px solid var(--border)"><a href="tel:<%= admission.phone %>" style="color:var(--navy)"><%= admission.phone %></a></td></tr>
+        <% if (admission.email) { %>
+        <tr><td style="padding:10px 0;font-weight:600;color:var(--gray-700);border-bottom:1px solid var(--border)">Email</td><td style="padding:10px 0;border-bottom:1px solid var(--border)"><a href="mailto:<%= admission.email %>" style="color:var(--green)"><%= admission.email %></a></td></tr>
+        <% } %>
+        <% if (admission.message) { %>
+        <tr><td style="padding:10px 0;font-weight:600;color:var(--gray-700);vertical-align:top">Message</td><td style="padding:10px 0;line-height:1.7"><%= admission.message %></td></tr>
+        <% } %>
+        </tbody>
+      </table>
+
+      <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap">
+        <a href="tel:<%= admission.phone %>" class="btn btn-green btn-sm"><i class="fa fa-phone"></i> Call</a>
+        <% if (admission.email) { %>
+        <a href="mailto:<%= admission.email %>" class="btn btn-outline btn-sm"><i class="fa fa-envelope"></i> Email</a>
+        <% } %>
+        <a href="https://wa.me/91<%= admission.phone.replace(/\D/g,'') %>" target="_blank" class="btn btn-outline btn-sm"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Status card -->
+  <div class="card">
+    <div class="card-header"><h3>Update Status</h3></div>
+    <div class="card-body">
+      <p style="margin-bottom:12px;font-size:.85rem;color:var(--gray-500)">Current status:</p>
+      <% const sc = {new:'badge-orange',contacted:'badge-navy',enrolled:'badge-green',closed:'badge-gray'}; %>
+      <span class="badge <%= sc[admission.status] || 'badge-gray' %>" style="font-size:.9rem;padding:6px 14px;margin-bottom:20px;display:inline-block"><%= admission.status %></span>
+      <form action="/admin/admissions/<%= admission.id %>/status" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <div class="form-group" style="margin-bottom:14px">
+          <select name="status">
+            <option value="new"       <%= admission.status === 'new'       ? 'selected' : '' %>>New</option>
+            <option value="contacted" <%= admission.status === 'contacted' ? 'selected' : '' %>>Contacted</option>
+            <option value="enrolled"  <%= admission.status === 'enrolled'  ? 'selected' : '' %>>Enrolled</option>
+            <option value="closed"    <%= admission.status === 'closed'    ? 'selected' : '' %>>Closed</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-navy" style="width:100%;justify-content:center">
+          <i class="fa fa-save"></i> Update
+        </button>
+      </form>
+    </div>
+  </div>
+
+</div>
+<% } %>

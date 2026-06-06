@@ -1,0 +1,52 @@
+<section class="page-hero" style="padding:40px 0">
+  <div class="container">
+    <h1>Search</h1>
+    <form action="/search" method="GET" style="max-width:500px;margin:16px auto 0;display:flex;gap:8px">
+      <input type="text" name="q" value="<%= q %>" placeholder="Search posts, events…"
+             style="flex:1;padding:12px 16px;border-radius:var(--radius);border:none;font-family:inherit;font-size:1rem">
+      <button type="submit" class="btn btn-orange">Search</button>
+    </form>
+  </div>
+</section>
+
+<section class="section" style="padding-top:40px">
+  <div class="container" style="max-width:780px">
+    <% if (q) { %>
+    <p style="color:var(--gray-500);margin-bottom:32px"><strong><%= total %></strong> result<%= total !== 1 ? 's' : '' %> for "<strong><%= q %></strong>"</p>
+
+    <% if (posts.length > 0) { %>
+    <h3 style="color:var(--navy);margin-bottom:16px;font-size:1rem;font-weight:700;display:flex;align-items:center;gap:8px"><i class="fa fa-newspaper" style="color:var(--green)"></i> Blog Posts</h3>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:32px">
+      <% posts.forEach(function(p) { %>
+      <a href="/blog/<%= p.slug %>" style="display:flex;gap:16px;align-items:flex-start;padding:18px;background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-sm);border-left:3px solid var(--green)">
+        <div style="flex:1">
+          <span class="blog-cat blog-cat-<%= p.category %>" style="margin-bottom:6px;display:inline-block"><%= p.category %></span>
+          <h4 style="color:var(--navy);font-weight:600;margin-bottom:4px"><%= p.title %></h4>
+          <% if (p.excerpt) { %><p style="color:var(--gray-500);font-size:.85rem"><%= p.excerpt.slice(0,120) %>…</p><% } %>
+        </div>
+      </a>
+      <% }) %>
+    </div>
+    <% } %>
+
+    <% if (events.length > 0) { %>
+    <h3 style="color:var(--navy);margin-bottom:16px;font-size:1rem;font-weight:700;display:flex;align-items:center;gap:8px"><i class="fa fa-calendar" style="color:var(--green)"></i> Events</h3>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <% events.forEach(function(ev) { %>
+      <div style="padding:16px 20px;background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-sm);border-left:3px solid var(--orange)">
+        <h4 style="color:var(--navy);font-weight:600;margin-bottom:4px"><%= ev.title %></h4>
+        <% if (ev.event_date) { %><span style="font-size:.8rem;color:var(--gray-500)"><i class="fa fa-calendar-alt"></i> <%= new Date(ev.event_date).toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'}) %></span><% } %>
+      </div>
+      <% }) %>
+    </div>
+    <% } %>
+
+    <% if (total === 0) { %>
+    <div style="text-align:center;padding:48px 0;color:var(--gray-500)">
+      <i class="fa fa-search" style="font-size:2.5rem;opacity:.2;display:block;margin-bottom:16px"></i>
+      <p>No results found for "<%= q %>". Try a different search term.</p>
+    </div>
+    <% } %>
+    <% } %>
+  </div>
+</section>
