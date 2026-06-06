@@ -10,4 +10,6 @@ const pool = mysql2.createPool({
   connectionLimit: 10,
 });
 
+pool.on('error', err => console.warn('DB pool error:', err.message));
+
 module.exports = pool;
