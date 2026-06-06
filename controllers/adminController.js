@@ -95,7 +95,7 @@ exports.loginSubmit = async (req, res) => {
       req.session.adminRole = admin.role;
       return res.redirect('/admin');
     }
-  } catch { /* DB not ready */ }
+  } catch (e) { console.error('Login error:', e.message); }
   res.render('admin/login', { layout: false, title: 'Admin Login | Abhyaas', error: 'Invalid credentials' });
 };
 
