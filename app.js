@@ -47,22 +47,15 @@ const sessionConfig = {
 
 if (process.env.DB_PASS) {
   try {
-    const pool = require('./config/database');
-    pool.getConnection((err, conn) => {
-      if (err) {
-        console.warn('DB not reachable, using memory session store:', err.message);
-        return;
-      }
-      conn.release();
-      const store = new MySQLStore({
-        clearExpired: true,
-        checkExpirationInterval: 900000,
-        expiration: 86400000,
-        createDatabaseTable: false,
-      }, pool);
-      store.on('error', err => console.warn('Session store error:', err.message));
-      sessionConfig.store = store;
-    });
+    const pool  = require('./config/database');
+    const store = new MySQLStore({
+      clearExpired: true,
+      checkExpirationInterval: 900000,
+      expiration: 86400000,
+      createDatabaseTable: false,
+    }, pool);
+    store.on('error', err => console.warn('Session store error:', err.message));
+    sessionConfig.store = store;
   } catch (e) {
     console.warn('Session store init failed, using memory store:', e.message);
   }
