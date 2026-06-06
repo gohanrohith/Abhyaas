@@ -105,8 +105,9 @@ ul { list-style: none; }
   max-width: 1180px; margin: 0 auto; padding: 0 24px;
   display: flex; align-items: center; gap: 8px;
 }
-.nav-logo { flex-shrink: 0; padding: 4px 0; }
-.nav-logo-img { height: 56px; width: auto; }
+.nav-logo { flex-shrink: 0; padding: 4px 0; display: flex; align-items: center; gap: 10px; }
+.nav-logo-icon { height: 56px; width: auto; }
+.nav-logo-name { height: 44px; width: auto; }
 
 .nav-links {
   display: flex; align-items: center; gap: 4px;
@@ -265,6 +266,7 @@ ul { list-style: none; }
 .footer { background: var(--navy); color: rgba(255,255,255,.75); }
 .footer-main { padding: 64px 0 40px; max-width: 1180px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
 .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 48px; }
+.footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
 .footer-tagline { font-style: italic; color: #f0c080; margin: 8px 0; font-size: .9rem; }
 .footer-desc { font-size: .85rem; margin-bottom: 16px; line-height: 1.7; }
 .footer-col h4 { color: var(--white); font-size: .9rem; font-weight: 700; margin-bottom: 16px; letter-spacing: .04em; }
