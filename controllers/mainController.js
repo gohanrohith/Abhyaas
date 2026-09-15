@@ -236,7 +236,7 @@ exports.search = async (req, res) => {
 // ── Newsletter ────────────────────────────────────────
 exports.newsletterSubscribe = async (req, res) => {
   const { email, name } = req.body;
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.redirect('back');
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.redirect('/?newsletter=error');
   try {
     const { query } = require('../config/db');
     const token = crypto.randomBytes(32).toString('hex');

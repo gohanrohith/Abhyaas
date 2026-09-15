@@ -44,6 +44,7 @@ router.post('/gallery/album/create',      ctrl.albumCreate);
 router.get('/gallery/album/:id',          ctrl.albumView);
 router.post('/gallery/album/:id/upload',  ctrl.albumUpload);
 router.post('/gallery/album/:id/delete',  ctrl.albumDelete);
+router.post('/gallery/album/:id/reorder', ctrl.photoReorder);
 router.post('/gallery/photo/:id/delete',  ctrl.photoDelete);
 
 // Faculty

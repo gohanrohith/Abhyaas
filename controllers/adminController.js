@@ -327,6 +327,14 @@ exports.albumDelete = async (req, res) => {
   res.redirect('/admin/gallery');
 };
 
+exports.photoReorder = async (req, res) => {
+  const ids = [].concat(req.body.ids || []);
+  for (let i = 0; i < ids.length; i++) {
+    await q(`UPDATE gallery_photos SET sort_order=? WHERE id=? AND album_id=?`, [i, ids[i], req.params.id]);
+  }
+  res.json({ ok: true });
+};
+
 exports.photoDelete = async (req, res) => {
   const photo = await q1(`SELECT * FROM gallery_photos WHERE id=?`, [req.params.id]);
   if (photo) {

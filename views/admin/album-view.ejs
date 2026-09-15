@@ -38,19 +38,20 @@
     </a>
   </div>
   <div class="card-body">
-    <% if (photos.length > 0) { %>
-    <div class="photo-grid">
+    <div id="photoGrid" data-album="<%= album.id %>" data-csrf="<%= csrfToken %>" class="photo-grid">
       <% photos.forEach(function(p) { %>
-      <div class="photo-item">
+      <div class="photo-item" data-photo-id="<%= p.id %>">
         <img src="/uploads/gallery/<%= p.filename %>" alt="<%= p.caption || '' %>" loading="lazy">
-        <form action="/admin/gallery/photo/<%= p.id %>/delete" method="POST"
-              data-confirm="Delete this photo?">
-          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-          <button class="photo-del" title="Delete"><i class="fa fa-trash"></i></button>
-        </form>
         <% if (p.caption) { %>
-        <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.5);color:#fff;font-size:.7rem;padding:4px 6px;border-radius:0 0 var(--radius) var(--radius);overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><%= p.caption %></div>
+        <div style="position:absolute;bottom:28px;left:0;right:0;background:rgba(0,0,0,.5);color:#fff;font-size:.7rem;padding:4px 6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><%= p.caption %></div>
         <% } %>
+        <div style="position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.45);padding:3px 6px">
+          <span style="color:#ccc;cursor:grab;font-size:.85rem" title="Drag to reorder"><i class="fa fa-grip-horizontal"></i></span>
+          <form action="/admin/gallery/photo/<%= p.id %>/delete" method="POST" data-confirm="Delete this photo?" style="margin:0">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="photo-del" title="Delete" style="background:none;border:none;color:#f88;cursor:pointer;padding:2px 4px"><i class="fa fa-trash"></i></button>
+          </form>
+        </div>
       </div>
       <% }) %>
     </div>
@@ -62,3 +63,27 @@
     <% } %>
   </div>
 </div>
+<style>.sortable-ghost{opacity:.35;outline:2px dashed var(--green,#4caf50)}</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.6/Sortable.min.js"></script>
+<script>
+(function () {
+  var grid = document.getElementById('photoGrid');
+  if (!grid || typeof Sortable === 'undefined') return;
+  Sortable.create(grid, {
+    animation: 150,
+    handle: '.fa-grip-horizontal',
+    ghostClass: 'sortable-ghost',
+    onEnd: function () {
+      var ids = [].slice.call(grid.querySelectorAll('[data-photo-id]')).map(function (c) { return c.dataset.photoId; });
+      var fd = new FormData();
+      fd.append('_csrf', grid.dataset.csrf);
+      ids.forEach(function (id) { fd.append('ids[]', id); });
+      fetch('/admin/gallery/album/' + grid.dataset.album + '/reorder', {
+        method: 'POST',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        body: fd
+      }).catch(function () {});
+    }
+  });
+})();
+</script>
