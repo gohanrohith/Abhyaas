@@ -209,7 +209,7 @@ exports.gallery = async (req, res) => {
 exports.album = async (req, res) => {
   const album = await db1(`SELECT * FROM gallery_albums WHERE slug=? AND is_active=1`, [req.params.slug]);
   if (!album) return res.status(404).render('404', { title: '404 | Abhyaas' });
-  const photos = await db(`SELECT * FROM gallery_photos WHERE album_id=? ORDER BY sort_order`, [album.id]);
+  const photos = await db(`SELECT * FROM gallery_photos WHERE album_id=? ORDER BY sort_order ASC, id ASC`, [album.id]);
   res.render('main/album', { title: `${album.title} | Gallery | Abhyaas`, album, photos });
 };
 

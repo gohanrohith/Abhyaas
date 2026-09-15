@@ -299,7 +299,7 @@ exports.albumCreate = (req, res) => {
 exports.albumView = async (req, res) => {
   const album  = await q1(`SELECT * FROM gallery_albums WHERE id=?`, [req.params.id]);
   if (!album) return res.redirect('/admin/gallery');
-  const photos = await q(`SELECT * FROM gallery_photos WHERE album_id=? ORDER BY sort_order`, [album.id]);
+  const photos = await q(`SELECT * FROM gallery_photos WHERE album_id=? ORDER BY sort_order ASC, id ASC`, [album.id]);
   res.render('admin/album-view', { title: `${album.title} | Gallery Admin`, album, photos, error: req.query.error || null });
 };
 
