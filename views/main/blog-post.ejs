@@ -27,9 +27,27 @@
     <% if (post.cover_image) { %>
     <img src="/uploads/blog/<%= post.cover_image %>" alt="<%= post.title %>" class="post-cover" onerror="this.style.display='none'">
     <% } %>
-    <div class="post-body">
-      <%- post.content || '<p>Content coming soon.</p>' %>
+    <% if (post.content_hi || post.content_te) { %>
+    <div style="display:flex;gap:0;border-bottom:2px solid var(--gray-200);margin-bottom:1.25rem">
+      <button type="button" class="lang-btn active" data-lang="en"
+        style="padding:.45rem 1rem;font-size:.82rem;font-weight:600;border:none;background:none;cursor:pointer;color:var(--green);border-bottom:2px solid var(--green);margin-bottom:-2px">English</button>
+      <% if (post.content_hi) { %>
+      <button type="button" class="lang-btn" data-lang="hi"
+        style="padding:.45rem 1rem;font-size:.82rem;font-weight:600;border:none;background:none;cursor:pointer;color:var(--gray-500);border-bottom:2px solid transparent;margin-bottom:-2px">हिंदी</button>
+      <% } %>
+      <% if (post.content_te) { %>
+      <button type="button" class="lang-btn" data-lang="te"
+        style="padding:.45rem 1rem;font-size:.82rem;font-weight:600;border:none;background:none;cursor:pointer;color:var(--gray-500);border-bottom:2px solid transparent;margin-bottom:-2px">తెలుగు</button>
+      <% } %>
     </div>
+    <% } %>
+    <div class="post-body" id="content-en"><%- post.content || '<p>Content coming soon.</p>' %></div>
+    <% if (post.content_hi) { %>
+    <div class="post-body" id="content-hi" style="display:none"><%- post.content_hi %></div>
+    <% } %>
+    <% if (post.content_te) { %>
+    <div class="post-body" id="content-te" style="display:none"><%- post.content_te %></div>
+    <% } %>
 
     <!-- Share -->
     <div style="margin-top:40px;padding-top:24px;border-top:1px solid var(--gray-200)">
@@ -66,3 +84,19 @@
     </div>
   </aside>
 </div>
+<script>
+document.querySelectorAll('.lang-btn').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.lang-btn').forEach(function(b){
+      b.style.color='var(--gray-500)';b.style.borderBottomColor='transparent';
+    });
+    btn.style.color='var(--green)';btn.style.borderBottomColor='var(--green)';
+    ['en','hi','te'].forEach(function(l){
+      var el=document.getElementById('content-'+l);
+      if(el) el.style.display='none';
+    });
+    var target=document.getElementById('content-'+btn.dataset.lang);
+    if(target) target.style.display='';
+  });
+});
+</script>

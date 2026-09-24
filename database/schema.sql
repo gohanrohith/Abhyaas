@@ -23,6 +23,8 @@ CREATE TABLE IF NOT EXISTS posts (
   slug         VARCHAR(500) NOT NULL UNIQUE,
   excerpt      TEXT,
   content      LONGTEXT,
+  content_hi   MEDIUMTEXT DEFAULT NULL,
+  content_te   MEDIUMTEXT DEFAULT NULL,
   cover_image  VARCHAR(300) DEFAULT NULL,
   category     ENUM('news','article','achievement') DEFAULT 'news',
   status       ENUM('draft','published','deleted') DEFAULT 'draft',
@@ -34,6 +36,9 @@ CREATE TABLE IF NOT EXISTS posts (
   updated_at   DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (created_by) REFERENCES admins(id) ON DELETE SET NULL
 );
+-- Trilingual migration (run if DB already exists):
+-- ALTER TABLE posts ADD COLUMN content_hi MEDIUMTEXT DEFAULT NULL AFTER content;
+-- ALTER TABLE posts ADD COLUMN content_te MEDIUMTEXT DEFAULT NULL AFTER content_hi;
 
 -- Events
 CREATE TABLE IF NOT EXISTS events (

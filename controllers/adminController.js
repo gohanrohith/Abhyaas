@@ -141,7 +141,7 @@ exports.blogNew = (req, res) => {
 exports.blogCreate = (req, res) => {
   blogImageUpload(req, res, async err => {
     if (err) return res.render('admin/blog-form', { title: 'New Post | Abhyaas Admin', post: req.body, error: err.message });
-    const { title, excerpt, content, category, status, featured } = req.body;
+    const { title, excerpt, content, content_hi, content_te, custom_slug, category, status, featured } = req.body;
     if (!title) return res.render('admin/blog-form', { title: 'New Post | Abhyaas Admin', post: req.body, error: 'Title is required' });
     let cover_image = null;
     if (req.file) {
@@ -149,15 +149,15 @@ exports.blogCreate = (req, res) => {
       if (!isValidImage(fp)) { fs.unlinkSync(fp); return res.render('admin/blog-form', { title: 'New Post | Abhyaas Admin', post: req.body, error: 'Invalid image file' }); }
       cover_image = req.file.filename;
     }
-    let slug = slugify(title);
-    const existing = await q1(`SELECT id FROM posts WHERE slug=?`, [slug]);
-    if (existing) slug = `${slug}-${Date.now()}`;
+    let postSlug = (custom_slug || '').trim().toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-{2,}/g, '-').replace(/^-|-$/g, '') || slugify(title);
+    const existing = await q1(`SELECT id FROM posts WHERE slug=?`, [postSlug]);
+    if (existing) postSlug = `${postSlug}-${Date.now()}`;
     const published_at = status === 'published' ? new Date() : null;
     await q(
-      `INSERT INTO posts (title, slug, excerpt, content, cover_image, category, status, featured, published_at, created_by)
-       VALUES (?,?,?,?,?,?,?,?,?,?)`,
-      [title, slug, excerpt || null, content || null, cover_image, category || 'news',
-       status || 'draft', featured === '1' ? 1 : 0, published_at, req.session.adminId]
+      `INSERT INTO posts (title, slug, excerpt, content, content_hi, content_te, cover_image, category, status, featured, published_at, created_by)
+       VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,
+      [title, postSlug, excerpt || null, content || null, content_hi || null, content_te || null,
+       cover_image, category || 'news', status || 'draft', featured === '1' ? 1 : 0, published_at, req.session.adminId]
     );
     res.redirect('/admin/blog?success=Post+created');
   });
@@ -172,7 +172,7 @@ exports.blogEdit = async (req, res) => {
 exports.blogUpdate = (req, res) => {
   blogImageUpload(req, res, async err => {
     if (err) return res.redirect(`/admin/blog/${req.params.id}/edit?error=${encodeURIComponent(err.message)}`);
-    const { title, excerpt, content, category, status, featured } = req.body;
+    const { title, excerpt, content, content_hi, content_te, custom_slug, category, status, featured } = req.body;
     const post = await q1(`SELECT * FROM posts WHERE id=?`, [req.params.id]);
     if (!post) return res.redirect('/admin/blog');
     let cover_image = post.cover_image;
@@ -181,11 +181,12 @@ exports.blogUpdate = (req, res) => {
       if (!isValidImage(fp)) { fs.unlinkSync(fp); }
       else cover_image = req.file.filename;
     }
+    const postSlug = (custom_slug || '').trim().toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-{2,}/g, '-').replace(/^-|-$/g, '') || post.slug;
     const published_at = status === 'published' && !post.published_at ? new Date() : post.published_at;
     await q(
-      `UPDATE posts SET title=?, excerpt=?, content=?, cover_image=?, category=?, status=?, featured=?, published_at=? WHERE id=?`,
-      [title, excerpt || null, content || null, cover_image, category || 'news',
-       status || 'draft', featured === '1' ? 1 : 0, published_at, req.params.id]
+      `UPDATE posts SET title=?, slug=?, excerpt=?, content=?, content_hi=?, content_te=?, cover_image=?, category=?, status=?, featured=?, published_at=? WHERE id=?`,
+      [title, postSlug, excerpt || null, content || null, content_hi || null, content_te || null,
+       cover_image, category || 'news', status || 'draft', featured === '1' ? 1 : 0, published_at, req.params.id]
     );
     res.redirect('/admin/blog?success=Post+updated');
   });
