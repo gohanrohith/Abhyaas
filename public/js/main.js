@@ -46,3 +46,13 @@
 if (window.location.pathname.startsWith('/admin')) {
   setInterval(() => fetch('/admin/keepalive'), 10 * 60 * 1000);
 }
+
+// Right-click image protection (deters casual save-as)
+(function() {
+  document.addEventListener('contextmenu', function(e) {
+    if (e.target.tagName === 'IMG') { e.preventDefault(); }
+  });
+  document.addEventListener('dragstart', function(e) {
+    if (e.target.tagName === 'IMG') { e.preventDefault(); }
+  });
+})();
