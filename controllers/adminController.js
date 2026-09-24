@@ -192,7 +192,9 @@ exports.blogUpdate = (req, res) => {
 };
 
 exports.blogDelete = async (req, res) => {
-  await q(`UPDATE posts SET status='deleted' WHERE id=?`, [req.params.id]);
+  const post = await db1(`SELECT cover_image FROM posts WHERE id=?`, [req.params.id]);
+  await q(`DELETE FROM posts WHERE id=?`, [req.params.id]);
+  if (post?.cover_image) fs.unlink(path.join(UPLOADS_BASE, 'blog', post.cover_image), () => {});
   res.redirect('/admin/blog');
 };
 

@@ -180,9 +180,14 @@ exports.blogPost = async (req, res) => {
      WHERE status='published' AND category=? AND id!=? ORDER BY published_at DESC LIMIT 3`,
     [post.category, post.id]
   );
+  const domain = `https://${process.env.MAIN_DOMAIN || 'abhyaastheglobalschool.com'}`;
+  const canonicalUrl = `${domain}/blog/${post.slug}`;
+  const ogImage = post.cover_image
+    ? `${domain}/uploads/blog/${post.cover_image}`
+    : `${domain}/images/logo-abhyaas.png`;
   res.render('main/blog-post', {
     title: `${post.title} | Abhyaas`,
-    post, related,
+    post, related, canonicalUrl, ogImage,
   });
 };
 
