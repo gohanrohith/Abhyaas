@@ -38,6 +38,7 @@ router.post('/events/:id/update',   ctrl.eventUpdate);
 router.post('/events/:id/delete',   ctrl.eventDelete);
 
 // Gallery
+router.get('/gallery/albums-json',        ctrl.albumsJson);
 router.get('/gallery',                    ctrl.galleryList);
 router.get('/gallery/new-album',          ctrl.albumNew);
 router.post('/gallery/album/create',      ctrl.albumCreate);

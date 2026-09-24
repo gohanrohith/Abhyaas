@@ -269,6 +269,21 @@ exports.eventDelete = async (req, res) => {
 };
 
 // ── Gallery ───────────────────────────────────────────
+exports.albumsJson = async (req, res) => {
+  const albums = await q(
+    `SELECT ga.id, ga.title, gp.filename AS cover_filename
+     FROM gallery_albums ga
+     LEFT JOIN gallery_photos gp ON gp.album_id=ga.id
+     WHERE ga.is_active=1
+     GROUP BY ga.id ORDER BY ga.created_at DESC`
+  );
+  res.json(albums.map(a => ({
+    id:    a.id,
+    title: a.title,
+    cover: a.cover_filename ? `/uploads/gallery/${a.cover_filename}` : null,
+  })));
+};
+
 exports.galleryList = async (req, res) => {
   const albums = await q(`SELECT ga.*, COUNT(gp.id) AS photo_count FROM gallery_albums ga LEFT JOIN gallery_photos gp ON gp.album_id=ga.id WHERE ga.is_active=1 GROUP BY ga.id ORDER BY ga.created_at DESC`);
   res.render('admin/gallery', { title: 'Gallery | Abhyaas Admin', albums });
