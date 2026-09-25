@@ -13,7 +13,7 @@
       <h2>World-Class Learning Environment</h2>
       <p style="color:var(--gray-500);max-width:600px;margin:0 auto">Every facility at Abhyaas is designed to inspire curiosity and enable excellence.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
+    <div class="facilities-grid">
       <% [
         {icon:'fa-chalkboard',title:'Smart Classrooms',desc:'Interactive digital boards, projectors, and modern furniture create an engaging learning environment in every classroom.'},
         {icon:'fa-flask',title:'Science Laboratories',desc:'Well-equipped Physics, Chemistry, and Biology labs with hands-on apparatus for practical learning.'},
@@ -28,7 +28,7 @@
         {icon:'fa-music',title:'Music & Dance Room',desc:'Dedicated space for classical and contemporary music and dance practice with proper acoustics.'},
         {icon:'fa-tree',title:'Green Campus',desc:'Landscaped grounds with gardens, shade trees, and eco-conscious practices that teach environmental responsibility.'},
       ].forEach(function(f) { %>
-      <div style="background:var(--white);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow-sm);border-bottom:3px solid var(--green);transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--shadow-sm)'">
+      <div class="facility-card">
         <div style="width:52px;height:52px;background:var(--green-10);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;margin-bottom:16px">
           <i class="fa <%= f.icon %>" style="color:var(--green);font-size:1.2rem"></i>
         </div>
