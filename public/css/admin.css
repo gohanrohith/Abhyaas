@@ -33,7 +33,7 @@ body { font-family: 'Outfit', sans-serif; font-size: .95rem; color: var(--gray-7
   position: fixed;
   top: 0; left: 0; bottom: 0;
   z-index: 200;
-  overflow-y: auto;
+  overflow: hidden;
   transition: transform .25s ease;
 }
 .sidebar-brand {

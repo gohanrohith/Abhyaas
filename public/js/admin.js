@@ -2,7 +2,7 @@
 
 // Sidebar toggle (mobile)
 const sidebar = document.getElementById('adminSidebar');
-const menuBtn = document.getElementById('menuToggle');
+const menuBtn = document.getElementById('sidebarToggle');
 if (menuBtn && sidebar) {
   menuBtn.addEventListener('click', () => sidebar.classList.toggle('open'));
   document.addEventListener('click', e => {
