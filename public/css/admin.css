@@ -89,7 +89,14 @@ body { font-family: 'Outfit', sans-serif; font-size: .95rem; color: var(--gray-7
 .topbar-left { display: flex; align-items: center; gap: 12px; }
 .topbar-right { display: flex; align-items: center; gap: 12px; color: var(--gray-500); font-size: .85rem; }
 .topbar-right .admin-badge { background: var(--navy); color: #fff; border-radius: 20px; padding: 4px 12px; font-size: .8rem; font-weight: 600; }
+.admin-topbar-title { font-weight: 600; font-size: .9rem; color: var(--gray-700); margin-right: auto; }
+.admin-topbar-right { display: flex; align-items: center; gap: 1rem; font-size: .85rem; }
+.admin-user { display: flex; align-items: center; gap: .4rem; color: var(--gray-500); }
+.btn-view-site { color: var(--gray-500); font-size: .82rem; display: flex; align-items: center; gap: .3rem; font-weight: 500; }
+.btn-view-site:hover { color: var(--green); text-decoration: none; }
 .btn-menu { display: none; background: none; border: none; cursor: pointer; padding: 6px; color: var(--gray-500); font-size: 1.1rem; }
+.sidebar-toggle { display: none; background: none; border: none; cursor: pointer; padding: 6px 8px; color: var(--gray-500); font-size: 1rem; align-items: center; justify-content: center; border-radius: var(--radius); transition: background .15s; }
+.sidebar-toggle:hover { background: var(--gray-100); }
 
 /* ── Content ── */
 .admin-content { padding: 28px 28px 40px; flex: 1; }
@@ -219,6 +226,7 @@ textarea { resize: vertical; min-height: 120px; }
   .admin-sidebar.open { transform: translateX(0); }
   .admin-main { margin-left: 0; }
   .btn-menu { display: block; }
+  .sidebar-toggle { display: flex; }
   .form-grid { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: repeat(2,1fr); }
 }
