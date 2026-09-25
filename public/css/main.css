@@ -70,17 +70,21 @@ ul { list-style: none; }
   font-weight: 600;
   font-size: .95rem;
   cursor: pointer;
-  transition: opacity .2s, transform .15s;
+  transition: background .2s, color .2s, border-color .2s, transform .15s, box-shadow .15s;
   border: 2px solid transparent;
 }
-.btn:hover { opacity: .88; transform: translateY(-1px); }
+.btn:hover { transform: translateY(-1px); }
 .btn-green  { background: var(--green);  color: var(--white); }
+.btn-green:hover  { background: #017033; }
 .btn-orange { background: var(--orange); color: var(--white); }
+.btn-orange:hover { background: #8a2d04; }
 .btn-navy   { background: var(--navy);   color: var(--white); }
+.btn-navy:hover   { background: #1e1a57; }
 .btn-outline-green { border-color: var(--green); color: var(--green); background: transparent; }
 .btn-outline-green:hover { background: var(--green); color: var(--white); }
 .btn-outline-white { border-color: var(--white); color: var(--white); background: transparent; }
 .btn-outline-white:hover { background: var(--white); color: var(--navy); }
+.btn-sm { padding: 8px 18px; font-size: .82rem; }
 .btn-lg { padding: 15px 36px; font-size: 1rem; }
 
 /* ── Topbar ───────────────────────────────────────────── */
