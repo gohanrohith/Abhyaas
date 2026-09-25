@@ -309,7 +309,8 @@ ul { list-style: none; }
   gap: 20px; font-size: .875rem; flex-wrap: wrap;
 }
 .cookie-banner a { color: #a8d4ff; text-decoration: underline; }
-.btn-cookie { background: var(--green); color: var(--white); border: none; padding: 8px 20px; border-radius: var(--radius); font-weight: 600; cursor: pointer; }
+.btn-cookie { background: var(--green); color: var(--white); border: none; padding: 8px 20px; border-radius: var(--radius); font-weight: 600; cursor: pointer; transition: background .2s, transform .15s; }
+.btn-cookie:hover { background: #017033; transform: translateY(-1px); }
 
 /* ── Page Hero (inner pages) ──────────────────────────── */
 .page-hero {
