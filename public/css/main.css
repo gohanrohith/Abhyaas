@@ -148,13 +148,14 @@ ul { list-style: none; }
 /* Apply Now CTA in nav */
 .nav-cta { margin-left: 8px; }
 .btn-apply {
+  display: inline-block;
   background: var(--green); color: var(--white);
   padding: 9px 20px; border-radius: var(--radius);
   font-weight: 600; font-size: .85rem;
-  transition: opacity .2s;
+  transition: background .2s, transform .15s;
   white-space: nowrap;
 }
-.btn-apply:hover { opacity: .88; }
+.btn-apply:hover { background: #017033; transform: translateY(-1px); }
 
 /* Burger */
 .nav-burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; margin-left: auto; }
