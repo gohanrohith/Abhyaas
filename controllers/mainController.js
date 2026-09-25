@@ -89,7 +89,7 @@ exports.admissions = async (req, res) => {
   res.render('main/admissions', {
     title: 'Admissions | Abhyaas The Global School',
     admissionsOpen: sm.admissions_open !== '0',
-    admissionYear: sm.admission_year || '2025-26',
+    admissionYear: sm.admission_year || '2027-28',
     success: req.query.success || null,
     error:   req.query.error   || null,
   });
